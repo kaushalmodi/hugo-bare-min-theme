@@ -1,0 +1,104 @@
+{{ define "head" }}
+
+<script type="text/x-mathjax-config">
+ MathJax.Hub.Config({
+     displayAlign: "center",
+     displayIndent: "0em",
+
+     "HTML-CSS": { scale: 100,
+                   linebreaks: { automatic: "false" },
+                   webFont: "TeX"
+     },
+     SVG: {scale: 100,
+           linebreaks: { automatic: "false" },
+           font: "TeX"},
+     NativeMML: {scale: 100},
+     TeX: { equationNumbers: {autoNumber: "AMS"},
+            MultLineWidth: "85%",
+            TagSide: "right",
+            TagIndent: ".8em"
+     }
+ });
+</script>
+<!-- https://gohugo.io/content-management/formats/#mathjax-with-hugo -->
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+
+{{ end }}
+
+{{ define "main" }}
+
+<div class="post">
+    <h1 class="post-title">{{ .Title }}</h1>
+    <p>
+        {{ with .Params.date }}
+            Date: {{ . }}
+        {{ end }}
+    </p>
+    <p>
+        {{ if ne (.PublishDate.Format "2006-01-02") "0001-01-01" }}
+            <!-- Print the publishdate only if it is not at its initial value of Jan 1, 0001 -->
+            PublishDate: {{ .PublishDate.Format "2006-01-02" }}
+        {{ end }}
+    </p>
+    <p>
+        {{ if ne (dateFormat "2006-01-02" .Params.LastMod) "0001-01-01" }}
+            <!-- Print the lastmod date only if it is not at its initial value of Jan 1, 0001 -->
+            <!-- Need to use dateFormat instead of .Format for lastmod as it is not a declared variable internally -->
+            LastMod Date: {{ dateFormat "2006-01-02" .Params.LastMod }}
+        {{ end }}
+    </p>
+    {{ if $.GitInfo }}      <!-- To enable this, put "enableGitInfo = true" in your site config.toml -->
+<pre>
+{{/* printf "GitInfo debug:: %#v" $.GitInfo */}}
+{{ printf "GitInfo Hash                           :: %#v" $.GitInfo.Hash }}
+{{ printf "GitInfo AbbreviatedHash                :: %#v" $.GitInfo.AbbreviatedHash }}
+{{ printf "GitInfo Subject                        :: %#v" $.GitInfo.Subject }}
+{{ printf "GitInfo AuthorName                     :: %#v" $.GitInfo.AuthorName }}
+{{/* printf "GitInfo AuthorEmail:: %#v" $.GitInfo.AuthorEmail */}}
+{{ printf "GitInfo AuthorDate (lastmod date)      :: %#v" $.GitInfo.AuthorDate }}
+LastMod Date using .GitInfo.AuthorDate :: {{ .GitInfo.AuthorDate }}
+</pre>
+    {{ end }}
+    </p>
+    <p>
+        {{ if .Params.categories }}
+            Categories:
+            {{ range .Params.categories }}
+                <a href="/categories/{{ . | urlize }}">{{ . }}</a>
+            {{ end }}
+        {{ end }}
+    </p>
+    <p>
+        {{ if .Params.tags }}
+            Tags:
+            {{ range .Params.tags }}
+                <a href="/tags/{{ . | urlize }}">{{ . }}</a>
+            {{ end }}
+        {{ end }}
+    </p>
+    <p>
+        {{ with .Params.weight }}
+            Weight (for debug): {{ . }}
+        {{ end }}
+    </p>
+    <p>
+        {{ if .Params.blackfriday }}
+            Blackfriday (for debug): {{ .Params.blackfriday }}
+        {{ end }}
+    </p>
+    <p>
+        {{ if .Params.menu }}
+            Menu (for debug): {{ .Params.menu }}
+        {{ end }}
+    </p>
+    <p>
+        {{ if .Params.draft }}
+            <b>--- This is a Draft ---</b>
+        {{ end }}
+    </p>
+    {{ .Content }}
+</div>
+
+{{ end }}
