@@ -10,7 +10,7 @@ It was designed to:
     development.
 
 [![Bare Min Theme
-Screenshot](https://raw.githubusercontent.com/kaushalmodi/hugo-bare-min-theme/master/images/screenshot.png)](https://raw.githubusercontent.com/kaushalmodi/hugo-bare-min-theme/master/images/screenshot.png)
+Screenshot](https://raw.githubusercontent.com/kaushalmodi/hugo-bare-min-theme/master/images/screenshot.png)](https://ox-hugo.scripter.co/test/posts/keyword-collection/)
 
 This theme is being used by:
 
