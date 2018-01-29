@@ -17,6 +17,7 @@
         {{ if $date_is_set }}
             <span class="post-date">{{ dateFormat "Mon Jan 2, 2006" .Params.date }}</span>
         {{ end }}
+        <i>(Last modified on {{ dateFormat "Mon Jan 2, 2006" .Lastmod }})</i>
     </header>
 
     <div class="post" >
