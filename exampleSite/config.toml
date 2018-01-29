@@ -1,0 +1,19 @@
+baseurl = "https://example.com"
+title = "Hugo Bare Min Theme"
+author = "Kaushal Modi"
+themesDir = "../../"
+theme = "hugo-bare-min-theme"
+
+[Params]
+  description = "Example site for the Hugo Bare Min theme."
+  intro = """
+This is an Example Site for the <a href="https://github.com/kaushalmodi/hugo-bare-min-theme">
+<code>hugo-bare-min-theme</code></a>.
+"""
+  footer = """
+  [<a href="/">Test Site home</a>]
+"""
+  [Params.source]
+    url = "https://github.com/kaushalmodi/hugo-bare-min-theme" # Mandatory, used in bare_min single.html, baseof.html
+    md_dir = "exampleSite/content"
+    # org_dir = "exampleSite/content-org"
