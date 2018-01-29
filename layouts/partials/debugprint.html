@@ -29,7 +29,7 @@
 {{ else if (or $typeIsNumber $typeIsString) }}
     <!-- Use %#v for strings so that their values always get double-quoted.
          That is helpful to tell if a space char is within a string. -->
-    {{ printf "%#v" $value | safeHTML }}
+    {{ printf "%#v" $value | htmlUnescape }}
 {{ else if (or $typeIsTime $typeIsInterface) }}
     {{ printf "%s" $value | safeHTML }}
 {{ else if $typeIsSlice }}
