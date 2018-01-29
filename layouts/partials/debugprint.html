@@ -94,8 +94,9 @@
                 {{ end }}
             </table>
         {{ else if $typeIsResource }}
-            {{ $ResourceVarNames   := (slice "ResourceType" "Permalink" "RelPermalink" "AbsSourceFilename" "Name" "Title" "Params") }}
-            {{ $ResourceVarSymbols := (slice .ResourceType  .Permalink  .RelPermalink  .AbsSourceFilename  .Name  .Title  .Params ) }}
+            {{ $ResourceVarNames   := (slice "Name" "Title" "ResourceType" "Permalink" "RelPermalink" "Params") }}
+            {{ $ResourceVarSymbols := (slice .Name  .Title  .ResourceType  .Permalink  .RelPermalink  .Params ) }}
+            <!-- There's .AbsSourceFilename too, but it's not very useful. -->
             <table>
                 <tr><th class="key">Resource Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $ResourceVarNames }}
@@ -106,8 +107,8 @@
             </table>
             <hr>
         {{ else if $typeIsPage }}
-            {{ $PageVarNames   := (slice "ResourceType" "Kind" "Draft" "Layout" "Permalink" "RelPermalink" "Name" "Title" "Params") }}
-            {{ $PageVarSymbols := (slice .ResourceType  .Kind  .Draft  .Layout  .Permalink  .RelPermalink  .Name  .Title  .Params ) }}
+            {{ $PageVarNames   := (slice "Name" "Title" "ResourceType" "Kind" "Draft" "Layout" "Permalink" "RelPermalink" "Params") }}
+            {{ $PageVarSymbols := (slice .Name  .Title  .ResourceType  .Kind  .Draft  .Layout  .Permalink  .RelPermalink  .Params ) }}
             <table>
                 <tr><th class="key">Page Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $PageVarNames }}
