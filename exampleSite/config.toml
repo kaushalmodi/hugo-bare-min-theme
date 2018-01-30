@@ -4,6 +4,20 @@ author = "Kaushal Modi"
 themesDir = "../../"
 theme = "hugo-bare-min-theme"
 
+enableEmoji = true
+enableGitInfo = true
+
+disableFastRender = true        # Hugo 0.30
+
+pygmentsCodeFences = true       # This applies to Chroma too.
+pygmentsUseClasses = true       # This applies to Chroma too.
+
+[Author]
+  name = "Kaushal Modi"
+
+[Social]
+  github = "kaushalmodi"
+
 [Params]
   description = "Example site for the Hugo Bare Min theme."
   intro = """

@@ -14,11 +14,12 @@ Screenshot](https://raw.githubusercontent.com/kaushalmodi/hugo-bare-min-theme/ma
 
 This theme is being used by:
 
-1.  The [test site](https://ox-hugo.scripter.co/test/) for
-    [`ox-hugo`](https://ox-hugo.scripter.co/).
-2.  Unofficial [Hugo Sandbox](https://hugo-sandbox.netlify.com/) site
-    that is used to create test cases for `hugo` bugs, new feature
-    requests, and testing `hugo` features in general.
+1. The [example site of this theme](https://hugo-bare-min.netlify.com/).
+2. The [test site](https://ox-hugo.scripter.co/test/) for
+   [`ox-hugo`](https://ox-hugo.scripter.co/).
+3. Unofficial [Hugo Sandbox](https://hugo-sandbox.netlify.com/) site
+   that is used to create test cases for `hugo` bugs, new feature
+   requests, and testing `hugo` features in general.
 
 ## Configuration options
 
@@ -47,6 +48,5 @@ and can be multiple lines.
     org_dir = "content-org" # Optional, but use if using ox-hugo!
 ```
 
-See the `Params` section in the [`ox-hugo` test site
-`config.toml`](https://github.com/kaushalmodi/ox-hugo/blob/master/test/site/config.toml)
+See the `Params` section in the [`config.toml` of this theme's `exampleSite`](https://github.com/kaushalmodi/hugo-bare-min-theme/blob/master/exampleSite/config.toml)
 to get an example.
