@@ -16,7 +16,7 @@
 <!-- Mon Feb 05 23:49:35 EST 2018 - kmodi
      *hugolib.Menu most likely is not a Slice.. couldn't use range to loop through it.
 -->
-{{ $typeIsSlice        := (findRE "^([[][]]|.*TaxonomyList|output\\.Formats|resource\\.Resources|\\*hugolib\\.Menu)" $type) }} <!-- match ^[] -->
+{{ $typeIsSlice        := (findRE "^([[][]]|.*TaxonomyList|output\\.Formats|resource\\.Resources|\\*hugolib\\.Menu$)" $type) }} <!-- match ^[] -->
 {{ $typeIsMap          := (findRE "^(map[[].+[]]|.*SiteSocial|\\*hugolib\\.Menus)" $type) }} <!-- match ^map[*] -->
 
 {{ $typeIsSiteInfo     := (eq "*hugolib.SiteInfo" $type) }}
