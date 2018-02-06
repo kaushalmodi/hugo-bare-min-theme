@@ -13,8 +13,11 @@
 {{ $typeIsString       := (eq "string" $type) }}
 {{ $typeIsTime         := (eq "time.Time" $type) }}
 {{ $typeIsInterface    := (eq "interface" $type) }}
-{{ $typeIsSlice        := (findRE "^([[][]]|.*TaxonomyList|output\\.Formats|resource\\.Resources)" $type) }} <!-- match ^[] -->
-{{ $typeIsMap          := (findRE "^(map[[].+[]]|.*SiteSocial)" $type) }} <!-- match ^map[*] -->
+<!-- Mon Feb 05 23:49:35 EST 2018 - kmodi
+     *hugolib.Menu most likely is not a Slice.. couldn't use range to loop through it.
+-->
+{{ $typeIsSlice        := (findRE "^([[][]]|.*TaxonomyList|output\\.Formats|resource\\.Resources|\\*hugolib\\.Menu)" $type) }} <!-- match ^[] -->
+{{ $typeIsMap          := (findRE "^(map[[].+[]]|.*SiteSocial|\\*hugolib\\.Menus)" $type) }} <!-- match ^map[*] -->
 
 {{ $typeIsSiteInfo     := (eq "*hugolib.SiteInfo" $type) }}
 {{ $typeIsGitInfo      := (findRE "^.*gitmap\\.GitInfo" $type) }}
@@ -22,7 +25,8 @@
 {{ $typeIsResource     := (findRE "^\\*resource" $type) }}
 {{ $typeIsPage         := (findRE "^\\*hugolib\\.Page" $type) }}
 {{ $typeIsFileInfo     := (eq "*hugolib.fileInfo" $type) }}
-{{ $typeIsSpecial      := (or $typeIsSiteInfo $typeIsGitInfo $typeIsOutputFormat $typeIsResource $typeIsPage $typeIsFileInfo) }}
+{{ $typeIsMenuEntry    := (eq "*hugolib.MenuEntry" $type) }}
+{{ $typeIsSpecial      := (or $typeIsSiteInfo $typeIsGitInfo $typeIsOutputFormat $typeIsResource $typeIsPage $typeIsFileInfo $typeIsMenuEntry) }}
 
 {{ if $typeIsBool }}
     {{ printf "<span class=\"debugprint\"><span class=\"%#v\">%#v</span></span>" $value $value | safeHTML }}
@@ -126,6 +130,17 @@
                 {{ range $idx, $elem := $FileInfoVarNames }}
                     {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
                     {{ partial "debugprint.html" (index $FileInfoVarSymbols $idx) }} <!-- Recursive call FTW! -->
+                    {{ printf "</td></tr>" | safeHTML }}
+                {{ end }}
+            </table>
+        {{ else if $typeIsMenuEntry }}
+            {{ $MenuEntryVarNames   := (slice "Menu" "Title" "Name" "URL" "Identifier" "Weight" "Pre" "Post" "Parent" "Children") }}
+            {{ $MenuEntryVarSymbols := (slice .Menu  .Title  .Name  .URL  .Identifier  .Weight  .Pre  .Post  .Parent  .Children ) }}
+            <table>
+                <tr><th class="key">MenuEntry Variable</th><th class="value">Value</th></tr>
+                {{ range $idx, $elem := $MenuEntryVarNames }}
+                    {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
+                    {{ partial "debugprint.html" (index $MenuEntryVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
             </table>
