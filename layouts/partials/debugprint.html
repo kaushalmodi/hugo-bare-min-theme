@@ -1,10 +1,18 @@
 <!-- Pretty Print for Debug -->
-<!-- Usage examples:
+<!-- https://github.com/kaushalmodi/hugo-bare-min-theme/blob/master/layouts/partials/debugprint.html -->
+<!-- Usage examples (remove /* and */ when using):
      {{/* partial "debugprint.html" .Params */}}
      {{/* partial "debugprint.html" .Site */}}
+     {{/* partial "debugprint.html" .Site.Menus */}}
      {{/* partial "debugprint.html" .GitInfo */}}
      {{/* partial "debugprint.html" .Resources */}}
      {{/* partial "debugprint.html" .File */}}
+-->
+<!-- Associated CSS file:
+     https://github.com/kaushalmodi/hugo-bare-min-theme/blob/master/layouts/partials/debugprint.css
+
+     Include that CSS file using below (remove /* and */ when using):
+     {{/* partial "debugprint.css" | safeCSS */}}
 -->
 {{ $value              := . }}
 {{ $type               := (printf "%T" $value) }}

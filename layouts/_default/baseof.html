@@ -36,37 +36,7 @@
          .masthead-body {
              font-size: 0.8em;
          }
-         .debugprint td {
-             padding-left: 4px;
-             padding-right: 4px;
-         }
-         .debugprint .key {
-             font-weight: bold;
-         }
-         .debugprint .type {
-             /* Hide Type columns in debugprint */
-             /* display: none; */
-             font-size: 0.9em;
-             font-family: monospace;
-             font-style: italic;
-         }
-         .debugprint .value {
-             font-family: monospace;
-         }
-         .debugprint .true {
-             color: green;
-         }
-         .debugprint .false {
-             color: red;
-         }
-         /* Don't touch the table headers */
-         .debugprint th.key,
-         .debugprint th.type,
-         .debugprint th.value {
-             font-family: normal;
-             font-size: 1em;
-             font-style: normal;
-         }
+         {{ partial "debugprint.css" | safeCSS }}
          /* Captions */
          figcaption,
          .src-block-caption,
