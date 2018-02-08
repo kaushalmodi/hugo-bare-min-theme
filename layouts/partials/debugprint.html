@@ -11,8 +11,11 @@
 <!-- Associated CSS file:
      https://github.com/kaushalmodi/hugo-bare-min-theme/blob/master/layouts/partials/debugprint.css
 
-     Include that CSS file using below (remove /* and */ when using):
-     {{/* partial "debugprint.css" | safeCSS */}}
+     Inline that CSS file in your site <head> using below (remove /* and */ when using):
+
+     <style>{{/* partial "debugprint.css" | safeCSS */}}</style>
+
+     See https://github.com/kaushalmodi/hugo-bare-min-theme/blob/master/layouts/_default/baseof.html for example.
 -->
 {{ $value              := . }}
 {{ $type               := (printf "%T" $value) }}
