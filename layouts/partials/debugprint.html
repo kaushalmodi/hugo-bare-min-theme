@@ -24,7 +24,7 @@
 {{ $typeIsString       := (eq "string" $type) }}
 {{ $typeIsTime         := (eq "time.Time" $type) }}
 {{ $typeIsInterface    := (eq "interface" $type) }}
-{{ $typeIsSlice        := (findRE "^([[][]]|.*TaxonomyList|output\\.Formats|resource\\.Resources|\\*?hugolib\\.Menu$)" $type) }} <!-- match ^[] -->
+{{ $typeIsSlice        := (findRE "^([[][]]|.*TaxonomyList|output\\.Formats|resource\\.Resources|\\*?hugolib\\.Menu$|\\*?hugolib\\.Pages$)" $type) }} <!-- match ^[] -->
 {{ $typeIsMap          := (findRE "^(map[[].+[]]|.*SiteSocial|\\*hugolib\\.Menus)" $type) }} <!-- match ^map[*] -->
 
 {{ $typeIsSiteInfo     := (eq "*hugolib.SiteInfo" $type) }}
