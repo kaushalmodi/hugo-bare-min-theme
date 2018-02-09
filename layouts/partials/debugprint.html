@@ -24,7 +24,7 @@
 {{ $typeIsString       := (eq "string" $type) }}
 {{ $typeIsTime         := (eq "time.Time" $type) }}
 {{ $typeIsSlice        := (findRE "^([[][]]|.*TaxonomyList|output\\.Formats|resource\\.Resources|\\*?hugolib\\.Menu$|\\*?hugolib\\.Pages$)" $type) }} <!-- match ^[] -->
-{{ $typeIsMap          := (findRE "^(map[[].+[]]|.*SiteSocial|\\*hugolib\\.Menus)" $type) }} <!-- match ^map[*] -->
+{{ $typeIsMap          := (findRE "^(map[[].+[]]|.*SiteSocial|\\*hugolib\\.Menus|hugolib\\.AuthorList)" $type) }} <!-- match ^map[*] -->
 
 {{ $typeIsSiteInfo     := (eq "*hugolib.SiteInfo" $type) }}
 {{ $typeIsGitInfo      := (findRE "^.*gitmap\\.GitInfo" $type) }}
@@ -119,8 +119,8 @@
                 {{ end }}
             </table>
         {{ else if $typeIsPage }} <!-- https://github.com/gohugoio/hugo/blob/master/hugolib/page.go -->
-            {{ $PageVarNames   := (slice "Name" "Title" "ResourceType" "Kind" "Draft" "Layout" "Permalink" "RelPermalink" "Params") }}
-            {{ $PageVarSymbols := (slice .Name  .Title  .ResourceType  .Kind  .Draft  .Layout  .Permalink  .RelPermalink  .Params ) }}
+            {{ $PageVarNames   := (slice "Name" "Title" "ResourceType" "Kind" "Section" "Draft" "Type" "Layout" "Permalink" "RelPermalink" "RSSLink") }}
+            {{ $PageVarSymbols := (slice .Name  .Title  .ResourceType  .Kind  .Section  .Draft  .Type  .Layout  .Permalink  .RelPermalink  .RSSLink  ) }}
             <table>
                 <tr><th class="key">Page Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $PageVarNames }}
