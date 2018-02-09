@@ -31,7 +31,7 @@
 {{ $typeIsOutputFormat := (eq "output.Format" $type) }}
 {{ $typeIsResource     := (findRE "^\\*resource" $type) }}
 {{ $typeIsPage         := (findRE "^\\*hugolib\\.Page" $type) }}
-{{ $typeIsFileInfo     := (eq "*hugolib.fileInfo" $type) }}
+{{ $typeIsFileInfo     := (findRE "^\\*(hugolib|source)\\.[fF]ileInfo$" $type) }} <!-- terms pages for e.g. uses source.FileInfo, regular pages using hugolib.fileInfo -->
 {{ $typeIsMenuEntry    := (eq "*hugolib.MenuEntry" $type) }}
 {{ $typeIsStruct       := (or $typeIsSiteInfo $typeIsGitInfo $typeIsOutputFormat $typeIsPage $typeIsMenuEntry) }}
 {{ $typeIsInterface    := (or $typeIsResource $typeIsFileInfo) }}
