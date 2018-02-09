@@ -33,8 +33,8 @@
 {{ $typeIsPage         := (findRE "^\\*hugolib\\.Page" $type) }}
 {{ $typeIsFileInfo     := (findRE "^\\*(hugolib|source)\\.[fF]ileInfo$" $type) }} <!-- terms pages for e.g. uses source.FileInfo, regular pages using hugolib.fileInfo -->
 {{ $typeIsMenuEntry    := (eq "*hugolib.MenuEntry" $type) }}
-{{ $typeIsStruct       := (or $typeIsSiteInfo $typeIsGitInfo $typeIsOutputFormat $typeIsPage $typeIsMenuEntry) }}
-{{ $typeIsInterface    := (or $typeIsResource $typeIsFileInfo) }}
+{{ $typeIsStruct       := (or $typeIsSiteInfo $typeIsGitInfo $typeIsOutputFormat $typeIsFileInfo $typeIsPage $typeIsMenuEntry) }}
+{{ $typeIsInterface    := (or $typeIsResource) }}
 
 {{ if $typeIsBool }}
     {{ printf "<span class=\"debugprint\"><span class=\"%#v\">%#v</span></span>" $value $value | safeHTML }}
@@ -105,6 +105,19 @@
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
             </table>
+        {{ else if $typeIsFileInfo }}
+            <!-- https://github.com/gohugoio/hugo/blob/master/hugolib/fileInfo.go (*hugolib.fileInfo - used by regular pages)  -->
+            <!-- https://github.com/gohugoio/hugo/blob/master/source/fileInfo.go (*source.FileInfo - used by term pages) -->
+            {{ $FileInfoVarNames   := (slice "UniqueID" "BaseFileName" "TranslationBaseName" "Lang" "Section" "LogicalName" "Dir" "Ext" "Path") }}
+            {{ $FileInfoVarSymbols := (slice .UniqueID  .BaseFileName  .TranslationBaseName  .Lang  .Section  .LogicalName  .Dir  .Ext  .Path ) }}
+            <table>
+                <tr><th class="key">FileInfo Variable</th><th class="value">Value</th></tr>
+                {{ range $idx, $elem := $FileInfoVarNames }}
+                    {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
+                    {{ partial "debugprint.html" (index $FileInfoVarSymbols $idx) }} <!-- Recursive call FTW! -->
+                    {{ printf "</td></tr>" | safeHTML }}
+                {{ end }}
+            </table>
         {{ else if $typeIsPage }} <!-- https://github.com/gohugoio/hugo/blob/master/hugolib/page.go -->
             {{ $PageVarNames   := (slice "Name" "Title" "ResourceType" "Kind" "Draft" "Layout" "Permalink" "RelPermalink" "Params") }}
             {{ $PageVarSymbols := (slice .Name  .Title  .ResourceType  .Kind  .Draft  .Layout  .Permalink  .RelPermalink  .Params ) }}
@@ -146,17 +159,6 @@
                 {{ end }}
             </table>
             <hr>
-        {{ else if $typeIsFileInfo }} <!-- https://github.com/gohugoio/hugo/blob/master/source/fileInfo.go -->
-            {{ $FileInfoVarNames   := (slice "UniqueID" "BaseFileName" "TranslationBaseName" "Lang" "Section" "LogicalName" "Dir" "Ext" "Path") }}
-            {{ $FileInfoVarSymbols := (slice .UniqueID  .BaseFileName  .TranslationBaseName  .Lang  .Section  .LogicalName  .Dir  .Ext  .Path ) }}
-            <table>
-                <tr><th class="key">FileInfo Variable</th><th class="value">Value</th></tr>
-                {{ range $idx, $elem := $FileInfoVarNames }}
-                    {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
-                    {{ partial "debugprint.html" (index $FileInfoVarSymbols $idx) }} <!-- Recursive call FTW! -->
-                    {{ printf "</td></tr>" | safeHTML }}
-                {{ end }}
-            </table>
         {{ end }}
     </div>
     <!-- Anything Else -->
