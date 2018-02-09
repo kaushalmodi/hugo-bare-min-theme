@@ -1,9 +1,24 @@
 /* CSS for Pretty Print for Debug (debugprint.html) */
 /* https://github.com/kaushalmodi/hugo-bare-min-theme/blob/master/layouts/partials/debugprint.html */
 /* https://github.com/kaushalmodi/hugo-bare-min-theme/blob/master/layouts/partials/debugprint.css */
-.debugprint td {
+.debugprint_wrap {
+    padding: 20px;
+    display: inline-block;
+    margin: 10px auto;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+}
+.debugprint td, .debugprint th {
     padding-left: 4px;
     padding-right: 4px;
+}
+.debugprint th {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.debugprint tr {
+    padding: 5px 10px;
 }
 .debugprint .key {
     font-weight: bold;
@@ -28,7 +43,9 @@
 .debugprint th.key,
 .debugprint th.type,
 .debugprint th.value {
-    font-family: normal;
+    font-family: helvetica, arial, san-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     font-size: 1em;
     font-style: normal;
 }

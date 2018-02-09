@@ -50,32 +50,34 @@
     {{ end }}
 {{ else if $typeIsMap }}
     {{ if (gt (len $value) 0) }}
-        <table class="debugprint">
-            <tr><th class="key">Key</th><th class="type">Type</th><th class="value">Value</th></tr>
-            {{ range $key1, $value1 := $value }}
-                {{ $type1       := (printf "%T" $value1) }}
-                {{ $type1IsTime := (eq "time.Time" $type1) }}
-                {{ if $type1IsTime }}
-                    <!-- Print the date only if it is not at its initial value of Jan 1, 0001 -->
-                    {{ if (ne "0001-01-01" ($value1.Format "2006-01-02")) }}
+        <div class="debugprint_wrap">
+            <table class="debugprint">
+                <tr><th class="key">Key</th><th class="type">Type</th><th class="value">Value</th></tr>
+                {{ range $key1, $value1 := $value }}
+                    {{ $type1       := (printf "%T" $value1) }}
+                    {{ $type1IsTime := (eq "time.Time" $type1) }}
+                    {{ if $type1IsTime }}
+                        <!-- Print the date only if it is not at its initial value of Jan 1, 0001 -->
+                        {{ if (ne "0001-01-01" ($value1.Format "2006-01-02")) }}
+                            {{ printf "<tr><td class=\"key\">%s</td><td class=\"type\">%s</td><td class=\"value\">" $key1 $type1 | safeHTML }}
+                            {{ partial "debugprint.html" $value1 }} <!-- Recursive call FTW! -->
+                            {{ printf "</td></tr>" | safeHTML }}
+                        {{ end }}
+                    {{ else }}
                         {{ printf "<tr><td class=\"key\">%s</td><td class=\"type\">%s</td><td class=\"value\">" $key1 $type1 | safeHTML }}
                         {{ partial "debugprint.html" $value1 }} <!-- Recursive call FTW! -->
                         {{ printf "</td></tr>" | safeHTML }}
                     {{ end }}
-                {{ else }}
-                    {{ printf "<tr><td class=\"key\">%s</td><td class=\"type\">%s</td><td class=\"value\">" $key1 $type1 | safeHTML }}
-                    {{ partial "debugprint.html" $value1 }} <!-- Recursive call FTW! -->
-                    {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
-            {{ end }}
-        </table>
+            </table>
+        </div>
     {{ end }}
 {{ else if $typeIsStruct }}
-    <div class="debugprint">
+    <div class="debugprint_wrap">
         {{ if $typeIsSiteInfo }} <!-- https://github.com/gohugoio/hugo/blob/master/hugolib/site.go -->
             {{ $siteVarNames   := (slice "Title" "Author" "Social" "LastChange" "DisqusShortname" "GoogleAnalytics" "Copyright" "RSSLink" "LanguageCode" "BuildDrafts" "Params") }}
             {{ $siteVarSymbols := (slice .Title  .Author  .Social  .LastChange  .DisqusShortname  .GoogleAnalytics  .Copyright  .RSSLink  .LanguageCode  .BuildDrafts  .Params ) }}
-            <table>
+            <table class="debugprint">
                 <tr><th class="key">SiteInfo Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $siteVarNames }}
                     {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
@@ -86,7 +88,7 @@
         {{ else if $typeIsGitInfo }} <!-- https://github.com/bep/gitmap/blob/master/gitmap.go -->
             {{ $gitInfoVarNames   := (slice "Hash" "AbbreviatedHash" "Subject" "AuthorName" "AuthorEmail" "AuthorDate") }}
             {{ $gitInfoVarSymbols := (slice .Hash  .AbbreviatedHash  .Subject  .AuthorName  .AuthorEmail  .AuthorDate ) }}
-            <table>
+            <table class="debugprint">
                 <tr><th class="key">GitInfo Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $gitInfoVarNames }}
                     {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
@@ -97,7 +99,7 @@
         {{ else if $typeIsOutputFormat }} <!-- https://github.com/gohugoio/hugo/blob/master/output/outputFormat.go -->
             {{ $OutputFormatVarNames   := (slice "Name" "MediaType" "Path" "BaseName" "Rel" "Protocol" "IsPlainText" "IsHTML" "NoUgly" "NotAlternative") }}
             {{ $OutputFormatVarSymbols := (slice .Name  .MediaType  .Path  .BaseName  .Rel  .Protocol  .IsPlainText  .IsHTML  .NoUgly  .NotAlternative ) }}
-            <table>
+            <table class="debugprint">
                 <tr><th class="key">OutputFormat Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $OutputFormatVarNames }}
                     {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
@@ -110,7 +112,7 @@
             <!-- https://github.com/gohugoio/hugo/blob/master/source/fileInfo.go (*source.FileInfo - used by term pages) -->
             {{ $FileInfoVarNames   := (slice "UniqueID" "BaseFileName" "TranslationBaseName" "Lang" "Section" "LogicalName" "Dir" "Ext" "Path") }}
             {{ $FileInfoVarSymbols := (slice .UniqueID  .BaseFileName  .TranslationBaseName  .Lang  .Section  .LogicalName  .Dir  .Ext  .Path ) }}
-            <table>
+            <table class="debugprint">
                 <tr><th class="key">FileInfo Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $FileInfoVarNames }}
                     {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
@@ -121,7 +123,7 @@
         {{ else if $typeIsPage }} <!-- https://github.com/gohugoio/hugo/blob/master/hugolib/page.go -->
             {{ $PageVarNames   := (slice "Name" "Title" "ResourceType" "Kind" "Section" "Draft" "Type" "Layout" "Permalink" "RelPermalink" "RSSLink") }}
             {{ $PageVarSymbols := (slice .Name  .Title  .ResourceType  .Kind  .Section  .Draft  .Type  .Layout  .Permalink  .RelPermalink  .RSSLink  ) }}
-            <table>
+            <table class="debugprint">
                 <tr><th class="key">Page Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $PageVarNames }}
                     {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
@@ -129,11 +131,10 @@
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
             </table>
-            <hr>
         {{ else if $typeIsMenuEntry }} <!-- https://github.com/gohugoio/hugo/blob/master/hugolib/menu.go -->
             {{ $MenuEntryVarNames   := (slice "Menu" "Title" "Name" "URL" "Identifier" "Weight" "Pre" "Post" "Parent" "Children") }}
             {{ $MenuEntryVarSymbols := (slice .Menu  .Title  .Name  .URL  .Identifier  .Weight  .Pre  .Post  .Parent  .Children ) }}
-            <table>
+            <table class="debugprint">
                 <tr><th class="key">MenuEntry Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $MenuEntryVarNames }}
                     {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
@@ -141,16 +142,15 @@
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
             </table>
-            <hr>
         {{ end }}
     </div>
 {{ else if $typeIsInterface }}
-    <div class="debugprint">
+    <div class="debugprint_wrap">
         {{ if $typeIsResource }} <!-- https://github.com/gohugoio/hugo/blob/master/resource/resource.go -->
             {{ $ResourceVarNames   := (slice "Name" "Title" "ResourceType" "Permalink" "RelPermalink" "Params") }}
             {{ $ResourceVarSymbols := (slice .Name  .Title  .ResourceType  .Permalink  .RelPermalink  .Params ) }}
             <!-- There's .AbsSourceFilename too, but it's not very useful. -->
-            <table>
+            <table class="debugprint">
                 <tr><th class="key">Resource Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $ResourceVarNames }}
                     {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
@@ -158,7 +158,6 @@
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
             </table>
-            <hr>
         {{ end }}
     </div>
     <!-- Anything Else -->
