@@ -1,13 +1,5 @@
 {{ define "main" }}             <!-- List of all posts -->
 
-{{ if (eq .Kind "section") }}
-    <h1>Posts in ‘{{ .Dir | default .Section }}’</h1>
-{{ else if (eq .Kind "taxonomy") }}
-    <h1>Posts with the {{ .Type | singularize }} ‘{{ .URL | replaceRE (printf "/%s/" .Type) "" | replaceRE "/" "" }}’</h1>
-{{ else }}
-    <h1>{{ .Title }}</h1>
-{{ end }}
-
 {{ with .GitInfo }} <!-- To enable this, put "enableGitInfo = true" in your site config.toml -->
     This page was created/modified in commit <a href="{{ $.Site.Params.source.url }}/commit/{{- .Hash -}}">
     {{- .AbbreviatedHash -}}</a> "{{ .Subject }}" on <b>{{ dateFormat "2006-01-02" .AuthorDate }}</b>.
@@ -20,7 +12,25 @@
     </div>
 {{ end }}
 
+{{ if (and (eq .Kind "section") (ne .File.Path "")) }} <!-- Branch bundle based section -->
+    <h1>{{ .Title }}</h1>
+    <h2>Posts in ‘{{ .Dir | default .Section }}’</h2>
+{{ else if (and (eq .Kind "section") (eq .File.Path "")) }} <!-- Regular section -->
+    <h1>Posts in ‘{{ .Dir | default .Section }}’</h1>
+{{ else if (eq .Kind "taxonomy") }}
+    <h1>Posts with the {{ .Type | singularize }} ‘{{ .URL | replaceRE (printf "/%s/" .Type) "" | replaceRE "/" "" }}’</h1>
+{{ end }}
+
+<section>
+    <ul class="post-list">
+        {{ range .Pages }}
+            {{ .Render "li" }}
+        {{ end }}
+    </ul>
+</section>
+
 {{ with .Content }}
+    <hr>
     {{ . }}
 {{ end }}
 
@@ -37,14 +47,6 @@
 	{{ end }}
     </ul>
 {{ end }}
-
-<section>
-    <ul class="post-list">
-        {{ range .Pages }}
-            {{ .Render "li" }}
-        {{ end }}
-    </ul>
-</section>
 
 <hr>
 <a id="debug"></a>
