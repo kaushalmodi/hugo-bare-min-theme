@@ -52,13 +52,22 @@
 <a id="debug"></a>
 <h3 id="page-debug">Page (Debug)</h3>
 {{ partial "debugprint.html" . }}
-<h3 id="page-params-debug">Page Params (Debug)</h3>
-{{ partial "debugprint.html" .Params }}
+{{ with .Params }}
+    <h3 id="page-params-debug">Page Params (Debug)</h3>
+    {{ partial "debugprint.html" . }}
+{{ end }}
 {{ with .Resources }}
     <h3 id="resource-debug">Resources (Debug)</h3>
     {{ partial "debugprint.html" . }}
 {{ end }}
 <h3 id="file-debug">File Object (Debug)</h3>
-{{ partial "debugprint.html" .File }}
+{{ if (ne .File.Path "") }}
+    {{ partial "debugprint.html" .File }}
+{{ else }}
+    <!-- For pages that don't have an associated content file name,
+         they only have the .File.UniqueID.
+    -->
+    {{ partial "debugprint.html" (dict "UniqueID" .File.UniqueID "Path" .File.Path) }}
+{{ end }}
 
 {{ end }}
