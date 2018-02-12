@@ -21,7 +21,7 @@
 {{ $type               := (printf "%T" $value) }}
 {{ $typeIsBool         := (eq "bool" $type) }}
 {{ $typeIsNumber       := (or (eq "int" $type) (eq "int64" $type) (eq "float64" $type)) }}
-{{ $typeIsString       := (eq "string" $type) }}
+{{ $typeIsString       := (findRE "^(string|template\\.(CSS|HTML|HTMLAttr|JS|JSStr|URL))$" $type) }}
 {{ $typeIsTime         := (eq "time.Time" $type) }}
 {{ $typeIsSlice        := (findRE "^([[][]]|.*TaxonomyList|output\\.Formats|resource\\.Resources|\\*?hugolib\\.Menu$|\\*?hugolib\\.Pages$)" $type) }} <!-- match ^[] -->
 {{ $typeIsMap          := (findRE "^(map[[].+[]]|.*SiteSocial|\\*hugolib\\.Menus|hugolib\\.AuthorList)" $type) }} <!-- match ^map[*] -->
