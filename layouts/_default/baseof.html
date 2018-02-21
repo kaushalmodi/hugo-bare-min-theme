@@ -107,11 +107,9 @@
                 )
             {{ end }}.
         </small>
-        <p>
-            {{ with .Site.Params.footer }}
-                {{- . | safeHTML -}}
-            {{ end }}
-        </p>
+        {{ with .Site.Params.footer }}
+            {{- . | safeHTML -}}
+        {{ end }}
     </body>
 </html>
 
