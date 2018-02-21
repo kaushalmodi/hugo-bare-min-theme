@@ -1,0 +1,74 @@
+<!-- https://discourse.gohugo.io/t/comparing-hugo-versions/10671/10?u=kaushalmodi -->
+{{ $ver_current := (index . 0) }}
+{{ $ver_ref := (index . 1) }}
+
+{{/* printf "Version string: %s<br />" .Hugo.Version | safeHTML */}}
+{{ $ver_current_major_minor := (float (replaceRE "([0-9]+\\.[0-9]+).*" "${1}" $ver_current)) }}
+{{ $ver_current_micro_str := (replaceRE "[0-9]+\\.[0-9]+(.*)" "${1}" $ver_current | replaceRE "-DEV" "-0.01") }}
+{{ $ver_current_micro := (div (float (or $ver_current_micro_str "0")) 100.00) }}
+{{/* printf "Micro Version: %s<br />" $ver_current_micro | safeHTML */}}
+{{/* printf "Micro Version float: %f<br />" $ver_current_micro_float | safeHTML */}}
+{{ $ver_current_float := (add $ver_current_major_minor $ver_current_micro) }}
+
+{{/* printf "Version float: %f<br />" $ver_current_float | safeHTML */}}
+{{/* printf "Version ≥ 0.36?: %#v<br />" (ge $ver_current_float 0.36) | safeHTML */}}
+{{/* printf "Version ≥ 0.37?: %#v<br />" (ge $ver_current_float 0.37) | safeHTML */}}
+{{/* printf "Version ≥ 0.38?: %#v<br />" (ge $ver_current_float 0.38) | safeHTML */}}
+
+{{ $ver_ref_major_minor := (float (replaceRE "([0-9]+\\.[0-9]+).*" "${1}" $ver_ref)) }}
+{{ $ver_ref_micro_str := (replaceRE "[0-9]+\\.[0-9]+(.*)" "${1}" $ver_ref | replaceRE "-DEV" "-0.01") }}
+{{ $ver_ref_micro := (div (float (or $ver_ref_micro_str "0")) 100.00) }}
+{{ $ver_ref_float := (add $ver_ref_major_minor $ver_ref_micro) }}
+
+<!-- "Return" value -->
+{{ ge $ver_current_float $ver_ref_float }}
+
+<!-- Tests -->
+{{/* if (findRE "true" (partial "version_ge.html" (slice "0.35-DEV" "0.36"))) */}}
+{{/* printf "0.35-DEV ≥ 0.36<br />" | safeHTML */}}
+{{/* else */}}
+{{/* printf "0.35-DEV < 0.36<br />" | safeHTML */}}
+{{/* end */}}
+{{/* if (findRE "true" (partial "version_ge.html" (slice "0.35" "0.36"))) */}}
+{{/* printf "0.35 ≥ 0.36<br />" | safeHTML */}}
+{{/* else */}}
+{{/* printf "0.35 < 0.36<br />" | safeHTML */}}
+{{/* end */}}
+{{/* if (findRE "true" (partial "version_ge.html" (slice "0.35.1" "0.36"))) */}}
+{{/* printf "0.35.1 ≥ 0.36<br />" | safeHTML */}}
+{{/* else */}}
+{{/* printf "0.35.1 < 0.36<br />" | safeHTML */}}
+{{/* end */}}
+{{/* if (findRE "true" (partial "version_ge.html" (slice "0.36-DEV" "0.36"))) */}}
+{{/* printf "0.36-DEV ≥ 0.36<br />" | safeHTML */}}
+{{/* else */}}
+{{/* printf "0.36-DEV < 0.36<br />" | safeHTML */}}
+{{/* end */}}
+{{/* if (findRE "true" (partial "version_ge.html" (slice "0.36" "0.36"))) */}}
+{{/* printf "0.36 ≥ 0.36<br />" | safeHTML */}}
+{{/* else */}}
+{{/* printf "0.36 < 0.36<br />" | safeHTML */}}
+{{/* end */}}
+{{/* if (findRE "true" (partial "version_ge.html" (slice "0.36.0" "0.36"))) */}}
+{{/* printf "0.36.0 ≥ 0.36<br />" | safeHTML */}}
+{{/* else */}}
+{{/* printf "0.36.0 < 0.36<br />" | safeHTML */}}
+{{/* end */}}
+{{/* if (findRE "true" (partial "version_ge.html" (slice "0.36.1" "0.36"))) */}}
+{{/* printf "0.36.1 ≥ 0.36<br />" | safeHTML */}}
+{{/* else */}}
+{{/* printf "0.36.1 < 0.36<br />" | safeHTML */}}
+{{/* end */}}
+
+<!-- Examples -->
+{{/* if (findRE "true" (partial "version_ge.html" (slice .Hugo.Version "0.35"))) */}}
+    {{/* printf "Headless bundles available!<br />" | safeHTML */}}
+{{/* else */}}
+    {{/* printf "Headless bundles *not* available!<br />" | safeHTML */}}
+{{/* end */}}
+
+{{/* if (findRE "false" (partial "version_ge.html" (slice .Hugo.Version "0.35"))) */}}
+    {{/* printf "Headless bundles *not* available!<br />" | safeHTML */}}
+{{/* else */}}
+    {{/* printf "Headless bundles available!<br />" | safeHTML */}}
+{{/* end */}}
