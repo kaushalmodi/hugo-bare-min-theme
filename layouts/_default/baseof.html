@@ -1,8 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
     <head>
+        <link href="http://gmpg.org/xfn/11" rel="profile">
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Above is a short hand for the below line. -->
+        <!-- http://htmldog.com/guides/html/intermediate/metatags/ -->
+        <!-- <meta http-equiv="content-type" content="text/html; charset=utf-8"> -->
+
+        <!-- Enable responsiveness on mobile devices-->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
         <title>
             {{ if eq .URL "/" }}
                 {{ .Site.Title }}
@@ -14,7 +20,7 @@
             {{- . | safeHTML -}}
         {{ end }}
         <!-- view-source:http://bettermotherfuckingwebsite.com/ -->
-        <style type="text/css">
+        <style>
          body {
              margin: 40px auto;
              max-width: 650px;
@@ -76,9 +82,11 @@
             <ul>
                 {{ if .Site.Params.source.org_dir }}
                     <li>The <i>actual <b>source</b></i>.. <a href="{{ .Site.Params.source.url }}/tree/master/{{ .Site.Params.source.org_dir }}">Org source dir</a></li>
-                    <ul>
-                        <li>Below Markdown is exported from Org using <code>ox-hugo</code>.</li>
-                    </ul>
+                    <li>
+                        <ul>
+                            <li>Below Markdown is exported from Org using <code>ox-hugo</code>.</li>
+                        </ul>
+                    </li>
                 {{ end }}
                 <li><a href="{{ .Site.Params.source.url }}/tree/master/{{ .Site.Params.source.md_dir }}">Markdown source dir</a></li>
             </ul>
