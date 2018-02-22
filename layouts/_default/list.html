@@ -50,8 +50,10 @@
 
 <hr>
 <a id="debug"></a>
-<h3 id="page-debug">Page (Debug)</h3>
-{{ partial "debugprint.html" . }}
+{{ if (ge (partial "version_str2float.html" $.Hugo.Version) 0.33) }}
+    <h3 id="page-debug">Page (Debug)</h3>
+    {{ partial "debugprint.html" . }}
+{{ end }}
 {{ with .Params }}
     <h3 id="page-params-debug">Page Params (Debug)</h3>
     {{ partial "debugprint.html" . }}

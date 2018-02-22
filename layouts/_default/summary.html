@@ -10,12 +10,14 @@
      the summary is shorter than the full post.
 -->
 
-{{ $date_is_set := (not (eq (dateFormat "2006-01-02" .Params.date) "0001-01-01")) }}
 <article class="summary">
     <header>
         <h1 class="post-title"><a href='{{ .Permalink }}'> {{ .Title }}</a> </h1>
-        {{ if $date_is_set }}
-            <span class="post-date">{{ dateFormat "Mon Jan 2, 2006" .Params.date }}</span>
+        {{ with .Params.date }}
+            {{ $date_is_set := (not (eq (dateFormat "2006-01-02" .) "0001-01-01")) }}
+            {{ if $date_is_set }}
+                <span class="post-date">{{ dateFormat "Mon Jan 2, 2006" . }}</span>
+            {{ end }}
         {{ end }}
         <i>(Last modified on {{ dateFormat "Mon Jan 2, 2006" .Lastmod }})</i>
     </header>
