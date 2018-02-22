@@ -1,0 +1,29 @@
+<!-- Just put the below line in any layout file (after removing the comment chars /* */ of course):
+     {{/* partial "version_str2float_tests.html" . */}} -->
+
+{{ partial "debugprint.html" (partial "version_str2float.html" .Hugo.Version) }}
+
+{{ printf "Version string: %s<br />" .Hugo.Version | safeHTML }}
+{{ if (ge (partial "version_str2float.html" .Hugo.Version) 0.36) }}
+    {{ printf "curr >= 0.36<br />" | safeHTML }}
+{{ else }}
+    {{ printf "curr < 0.36<br />" | safeHTML }}
+{{ end }}
+
+{{ if (ge (partial "version_str2float.html" .Hugo.Version) (partial "version_str2float.html" "0.36.1")) }}
+    {{ printf "curr >= 0.36.1<br />" | safeHTML }}
+{{ else }}
+    {{ printf "curr < 0.36.1<br />" | safeHTML }}
+{{ end }}
+
+{{ if (ge (partial "version_str2float.html" .Hugo.Version) 0.37) }}
+    {{ printf "curr >= 0.37<br />" | safeHTML }}
+{{ else }}
+    {{ printf "curr < 0.37<br />" | safeHTML }}
+{{ end }}
+
+{{ if (ge (partial "version_str2float.html" .Hugo.Version) 0.38) }}
+    {{ printf "curr >= 0.38<br />" | safeHTML }}
+{{ else }}
+    {{ printf "curr < 0.38<br />" | safeHTML }}
+{{ end }}

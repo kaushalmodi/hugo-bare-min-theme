@@ -1,35 +1,10 @@
-<!-- 0.36     -> 0.36 -->
-<!-- 0.36.1   -> 0.361 -->
-<!-- 0.37-DEV -> 0.3699 -->
+<!-- dummy variable for whitespace chomping --> {{- $chomp := "" -}}
+<!-- 0.36     -> 0.36 -->                       {{- $chomp -}}
+<!-- 0.36.1   -> 0.361 -->                      {{- $chomp -}}
+<!-- 0.37-DEV -> 0.3699 -->                     {{- $chomp -}}
 {{- $ver_major_minor := (float (replaceRE "([0-9]+\\.[0-9]+).*" "${1}" .)) -}}
 {{- $ver_micro_str := (replaceRE "[0-9]+\\.[0-9]+(.*)" "${1}" . | replaceRE "-DEV" "-0.01") -}}
 {{- $ver_micro := (div (float (or $ver_micro_str "0")) 100.00) -}}
 {{- $ver_float := (add $ver_major_minor $ver_micro) -}}
 <!-- "Return" value -->
 {{- $ver_float -}}
-
-<!-- Examples -->
-{{/* printf "Version string: %s<br />" .Hugo.Version | safeHTML */}}
-{{/* if (ge (partial "version_str2float.html" .Hugo.Version) 0.36) */}}
-    {{/* printf "curr >= 0.36<br />" | safeHTML */}}
-{{/* else */}}
-    {{/* printf "curr < 0.36<br />" | safeHTML */}}
-{{/* end */}}
-
-{{/* if (ge (partial "version_str2float.html" .Hugo.Version) (partial "version_str2float.html" "0.36.1")) */}}
-    {{/* printf "curr >= 0.36.1<br />" | safeHTML */}}
-{{/* else */}}
-    {{/* printf "curr < 0.36.1<br />" | safeHTML */}}
-{{/* end */}}
-
-{{/* if (ge (partial "version_str2float.html" .Hugo.Version) 0.37) */}}
-    {{/* printf "curr >= 0.37<br />" | safeHTML */}}
-{{/* else */}}
-    {{/* printf "curr < 0.37<br />" | safeHTML */}}
-{{/* end */}}
-
-{{/* if (ge (partial "version_str2float.html" .Hugo.Version) 0.38) */}}
-    {{/* printf "curr >= 0.38<br />" | safeHTML */}}
-{{/* else */}}
-    {{/* printf "curr < 0.38<br />" | safeHTML */}}
-{{/* end */}}
