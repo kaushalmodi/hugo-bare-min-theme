@@ -42,11 +42,15 @@
             <hr>
         {{ end }}
     </p>
+
+    <hr />
     {{ with .Description }}
-        <hr>
-        {{ . | markdownify }}
-        <hr>
+        {{ . }}
+    {{ else }}
+        {{ partial "summary_minus_toc.html" . | safeHTML }}
     {{ end }}
+    <hr />
+
     {{ .Content }}
 
     {{ if (not .Params.disable_debug) }}
