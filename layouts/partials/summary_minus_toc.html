@@ -1,4 +1,4 @@
-{{- $summary_has_org_toc := substr .Content 0 30 | findRE "class=\"ox-hugo-toc" -}}
+{{- $summary_has_org_toc := substr .Content 0 30 | findRE "[\".]ox-hugo-toc" -}}
 {{- if $summary_has_org_toc -}}
     {{- $content_splits := split .RawContent "<!--endtoc-->" -}} <!-- Need to use .RawContent as we will be parsing for 'more' comment later. -->
     <!-- If Org TOC is present, the special comment endtoc would also be present.
