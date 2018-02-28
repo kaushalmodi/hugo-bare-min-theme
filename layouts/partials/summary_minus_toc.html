@@ -10,7 +10,11 @@
     {{- else -}}
         {{- $summary_raw | markdownify | truncate 300 -}}
     {{- end -}}
+    <!-- Print the whole Description/Summary if endtoc special comment is not found. -->
 {{- else -}}
-    <!-- Print the whole Summary if endtoc special comment is not found. -->
-    {{- .Summary -}}
+    {{- with .Description -}}
+        {{- . | markdownify | printf "<p>%s</p>" | safeHTML -}}
+    {{- else -}}
+        {{- .Summary |  printf "<p>%s</p>" | safeHTML -}}
+    {{- end -}}
 {{- end -}}

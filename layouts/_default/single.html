@@ -46,7 +46,7 @@
     <hr />
     <h3>Description/Summary</h3>
     {{ with .Description }}
-        {{ . }}
+        {{ . | markdownify }}
     {{ else }}
         {{ partial "summary_minus_toc.html" . | safeHTML }}
     {{ end }}
