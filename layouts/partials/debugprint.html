@@ -17,24 +17,27 @@
 
      See https://github.com/kaushalmodi/hugo-bare-min-theme/blob/master/layouts/_default/baseof.html for example.
 -->
-{{ $value              := . }}
-{{ $type               := (printf "%T" $value) }}
-{{ $typeIsBool         := (eq "bool" $type) }}
-{{ $typeIsNumber       := (or (eq "int" $type) (eq "int64" $type) (eq "float64" $type)) }}
-{{ $typeIsString       := (findRE "^(string|template\\.(CSS|HTML|HTMLAttr|JS|JSStr|URL))$" $type) }}
-{{ $typeIsTime         := (eq "time.Time" $type) }}
-{{ $typeIsSlice        := (findRE "^([[][]]|.*TaxonomyList|output\\.Formats|resource\\.Resources|\\*?hugolib\\.Menu$|\\*?hugolib\\.Pages$)" $type) }} <!-- match ^[] -->
-{{ $typeIsMap          := (findRE "^(map[[].+[]]|.*SiteSocial|\\*hugolib\\.Menus|hugolib\\.AuthorList)" $type) }} <!-- match ^map[*] -->
+{{ $value                      := . }}
+{{ $type                       := (printf "%T" $value) }}
+{{ $typeIsBool                 := (eq "bool" $type) }}
+{{ $typeIsNumber               := (or (eq "int" $type) (eq "int64" $type) (eq "float64" $type)) }}
+{{ $typeIsString               := (findRE "^(string|template\\.(CSS|HTML|HTMLAttr|JS|JSStr|URL))$" $type) }}
+{{ $typeIsTime                 := (eq "time.Time" $type) }}
+{{ $typeIsSlice                := (findRE "^([[][]]|.*TaxonomyList|output\\.Formats|resource\\.Resources|\\*?hugolib\\.Menu$|\\*?hugolib\\.Pages$|hugolib\\.OrderedTaxonomy$|hugolib\\.WeightedPages)" $type) }} <!-- match ^[] -->
+{{ $typeIsMap                  := (findRE "^(map[[].+[]]|.*SiteSocial|\\*hugolib\\.Menus|hugolib\\.AuthorList|hugolib\\.Taxonomy)" $type) }} <!-- match ^map[*] -->
 
-{{ $typeIsSiteInfo     := (eq "*hugolib.SiteInfo" $type) }}
-{{ $typeIsGitInfo      := (findRE "^.*gitmap\\.GitInfo" $type) }}
-{{ $typeIsOutputFormat := (eq "output.Format" $type) }}
-{{ $typeIsResource     := (findRE "^\\*resource" $type) }}
-{{ $typeIsPage         := (findRE "^\\*hugolib\\.Page" $type) }}
-{{ $typeIsFileInfo     := (findRE "^\\*(hugolib|source)\\.[fF]ileInfo$" $type) }} <!-- terms pages for e.g. uses source.FileInfo, regular pages using hugolib.fileInfo -->
-{{ $typeIsMenuEntry    := (eq "*hugolib.MenuEntry" $type) }}
-{{ $typeIsStruct       := (or $typeIsSiteInfo $typeIsGitInfo $typeIsOutputFormat $typeIsFileInfo $typeIsPage $typeIsMenuEntry) }}
-{{ $typeIsInterface    := (or $typeIsResource) }}
+{{ $typeIsSiteInfo             := (eq "*hugolib.SiteInfo" $type) }}
+{{ $typeIsGitInfo              := (findRE "^.*gitmap\\.GitInfo" $type) }}
+{{ $typeIsOutputFormat         := (eq "output.Format" $type) }}
+{{ $typeIsResource             := (findRE "^\\*resource" $type) }}
+{{ $typeIsPage                 := (findRE "^\\*hugolib\\.Page" $type) }}
+{{ $typeIsFileInfo             := (findRE "^\\*(hugolib|source)\\.[fF]ileInfo$" $type) }} <!-- terms pages for e.g. uses source.FileInfo, regular pages using hugolib.fileInfo -->
+{{ $typeIsMenuEntry            := (eq "*hugolib.MenuEntry" $type) }}
+{{ $typeIsOrderedTaxonomyEntry := (eq "hugolib.OrderedTaxonomyEntry" $type) }}
+{{ $typeIsWeightedPage         := (eq "hugolib.WeightedPage" $type) }}
+{{ $typeIsStruct               := (or $typeIsSiteInfo $typeIsGitInfo $typeIsOutputFormat $typeIsFileInfo $typeIsPage $typeIsMenuEntry $typeIsOrderedTaxonomyEntry) }}
+{{ $typeIsInterface            := (or $typeIsResource) }}
+{{ $typeIsSpecial              := (or $typeIsWeightedPage) }}
 
 {{ if $typeIsBool }}
     {{ printf "<span class=\"debugprint\"><span class=\"%#v\">%#v</span></span>" $value $value | safeHTML }}
@@ -121,8 +124,8 @@
                 {{ end }}
             </table>
         {{ else if $typeIsPage }} <!-- https://github.com/gohugoio/hugo/blob/master/hugolib/page.go -->
-            {{ $PageVarNames   := (slice "Name" "Title" "ResourceType" "Kind" "Section" "Draft" "Type" "Layout" "Permalink" "RelPermalink" "RSSLink") }}
-            {{ $PageVarSymbols := (slice .Name  .Title  .ResourceType  .Kind  .Section  .Draft  .Type  .Layout  .Permalink  .RelPermalink  .RSSLink  ) }}
+            {{ $PageVarNames   := (slice "Name" "Title" "ResourceType" "Kind" "Section" "Draft" "Type" "Layout" "Permalink" "RelPermalink" "RSSLink" "Data") }}
+            {{ $PageVarSymbols := (slice .Name  .Title  .ResourceType  .Kind  .Section  .Draft  .Type  .Layout  .Permalink  .RelPermalink  .RSSLink  .Data ) }}
             <table class="debugprint">
                 <tr><th class="key">Page Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $PageVarNames }}
@@ -139,6 +142,17 @@
                 {{ range $idx, $elem := $MenuEntryVarNames }}
                     {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
                     {{ partial "debugprint.html" (index $MenuEntryVarSymbols $idx) }} <!-- Recursive call FTW! -->
+                    {{ printf "</td></tr>" | safeHTML }}
+                {{ end }}
+            </table>
+        {{ else if $typeIsOrderedTaxonomyEntry }} <!-- https://github.com/gohugoio/hugo/blob/master/hugolib/taxonomy.go -->
+            {{ $OrderedTaxonomyEntryVarNames   := (slice "Name" "Count" "Term" "WeightedPages") }}
+            {{ $OrderedTaxonomyEntryVarSymbols := (slice .Name  .Count  .Term  .WeightedPages ) }}
+            <table class="debugprint">
+                <tr><th class="key">OrderedTaxonomyEntry Variable</th><th class="value">Value</th></tr>
+                {{ range $idx, $elem := $OrderedTaxonomyEntryVarNames }}
+                    {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
+                    {{ partial "debugprint.html" (index $OrderedTaxonomyEntryVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
             </table>
@@ -160,6 +174,12 @@
             </table>
         {{ end }}
     </div>
+{{ else if $typeIsSpecial }}
+    {{ if $typeIsWeightedPage }} <!-- https://github.com/gohugoio/hugo/blob/master/hugolib/taxonomy.go -->
+        <table>
+            {{ printf "<tr><td>%s</td><td>W:%d</td></tr>" .Page.Title .Weight | safeHTML }}
+        </table>
+    {{ end }}
     <!-- Anything Else -->
 {{ else }}
     {{ printf "%#v (<i>type:%s</i>)" $value $type | safeHTML }}
