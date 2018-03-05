@@ -12,13 +12,16 @@
     </div>
 {{ end }}
 
-{{ if (and (eq .Kind "section") (ne .File.Path "")) }} <!-- Branch bundle based section -->
-    <h1>{{ .Title }}</h1>
-    <h2>Posts in ‘{{ .Dir | default .Section }}’</h2>
-{{ else if (and (eq .Kind "section") (eq .File.Path "")) }} <!-- Regular section -->
-    <h1>Posts in ‘{{ .Dir | default .Section }}’</h1>
+{{ if (eq .Kind "section") }}                          <!-- Section -->
+    {{ if (eq .File.Path "") }} <!-- Regular section -->
+        <h1>Posts in ‘{{ .Dir | default .Section }}’</h1>
+    {{ else }}                  <!-- Branch bundle based section -->
+        <h1>{{ .Title }}</h1>
+        <h2>Posts in ‘{{ .Dir | default .Section }}’</h2>
+    {{ end }}
 {{ else if (eq .Kind "taxonomy") }}
-    <h1>Posts with the {{ .Type | singularize }} ‘{{ .URL | replaceRE (printf "/%s/" .Type) "" | replaceRE "/" "" }}’</h1>
+    <!-- If the page is /tags/foo/, .Data.Singular = "tag", .Data.Term = "foo" -->
+    <h1>Posts with the {{ .Data.Singular }} ‘{{ .Data.Term }}’</h1>
 {{ end }}
 
 <section>

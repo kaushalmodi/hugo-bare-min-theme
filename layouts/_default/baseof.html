@@ -10,10 +10,12 @@
         <!-- Enable responsiveness on mobile devices-->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
         <title>
-            {{ if eq .URL "/" }}
+            {{ if (eq .Kind "home") }}
                 {{ .Site.Title }}
+            {{ else if (eq .Kind "taxonomy") }}
+                {{ printf "%s ‘%s’ ❚ %s" (.Data.Singular | humanize) .Data.Term .Site.Title }}
             {{ else }}
-                {{ .Title }} ❚ {{ .Site.Title }}
+                {{ printf "%s ❚ %s" .Title .Site.Title }}
             {{ end }}
         </title>
         {{ with .Site.Params.favicon }}
