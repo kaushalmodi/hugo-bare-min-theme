@@ -1,0 +1,8 @@
+[build]
+  publish = "exampleSite/public"
+  command = "cd exampleSite && hugo --theme repo"
+
+[context.production]
+  [context.production.environment]
+    HUGO_VERSION = "0.37"
+    HUGO_BASEURL = "https://hugo-bare-min.netlify.com/"
