@@ -13,7 +13,7 @@
             {{ if (eq .Kind "home") }}
                 {{ .Site.Title }}
             {{ else if (eq .Kind "taxonomy") }}
-                {{ printf "%s ‘%s’ ❚ %s" (.Data.Singular | humanize) .Data.Term .Site.Title }}
+                {{ printf "%s ‘%s’ ❚ %s" (.Data.Singular | title) .Data.Term .Site.Title }}
             {{ else }}
                 {{ printf "%s ❚ %s" .Title .Site.Title }}
             {{ end }}
