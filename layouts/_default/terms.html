@@ -3,7 +3,7 @@
 {{ $singular_term := .Data.Singular }}
 {{ $plural_term   := .Data.Plural }}
 
-<h1>Archive of Posts, by {{ $singular_term }}</h1>
+<h1>Archive of posts, by {{ $singular_term }}</h1>
 <ul>
     {{ range .Data.Terms.Alphabetical }}
         <li><a href="/{{ $plural_term }}/{{ .Name | urlize }}">{{ .Name }}</a> ({{ .Count }} entries)</li>
