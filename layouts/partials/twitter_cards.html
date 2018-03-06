@@ -31,7 +31,7 @@
     {{- end -}}
 {{- end }}
 <meta name="twitter:title" content="{{ .Title }}"/>
-<meta name="twitter:description" content="{{ with .Description }}{{ . | plainify }}{{ else }}{{ if .IsPage }}{{ partial "summary_minus_toc.html" . | plainify }}{{ else }}{{ with .Site.Params.description }}{{ . | plainify }}{{ end }}{{ end }}{{ end -}}"/>
+<meta name="twitter:description" content="{{ with .Description }}{{ . | markdownify | plainify }}{{ else }}{{ if .IsPage }}{{ partial "summary_minus_toc.html" . | markdownify | plainify }}{{ else }}{{ with .Site.Params.description }}{{ . | markdownify | plainify }}{{ end }}{{ end }}{{ end -}}"/>
 {{ with .Site.Social.twitter -}}
     <meta name="twitter:site" content="@{{ . }}"/>
     <meta name="twitter:creator" content="@{{ . }}"/>
