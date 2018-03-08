@@ -75,6 +75,13 @@
     </head>
 
     <body lang="en">
+        <div style="float: right;">
+            [ <a href="/tags/">tags</a>
+            | <a href="/categories/">categories</a>
+            | <a href="/search/"><strong>search</strong></a> ]
+        </div>
+        <br />
+
         <div class="masthead-title"><a href="/">{{ .Site.Title }}</a></div>
         <div class="masthead-body">
             {{ with .Site.Params.intro }}
@@ -117,6 +124,7 @@
         {{ with .Site.Params.footer }}
             {{- . | safeHTML -}}
         {{ end }}
+        {{ block "footer" . }}{{ end }}
     </body>
 </html>
 
