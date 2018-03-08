@@ -1,7 +1,7 @@
 {{ define "main" }}
 
 <!-- Have the paginator list posts, sorted by last modified date, most recent first -->
-{{ $paginator := .Paginate (.Data.Pages.ByLastmod.Reverse) 10 }}
+{{ $paginator := .Paginate (.Pages.ByLastmod.Reverse) 10 }}
 
 <div class="posts">
     <!-- http://justindunham.net/blog-bells-and-whistles-in-hugo/ -->
