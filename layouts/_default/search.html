@@ -17,8 +17,8 @@
         <p>${snippet}</p>
         <small>
             <table>
-                <tr><td>Tags</td><td>${tags}</td></tr>
-                <tr><td>Categories</td><td>${categories}</td></tr>
+                ${ isset tags }<tr><td><strong>Tags</strong></td><td>${tags}</td></tr>${ end }
+                ${ isset categories }<tr><td><strong>Categories</strong></td><td>${categories}</td></tr>${ end }
             </table>
         </small>
     </div>
