@@ -21,7 +21,7 @@ var fuseOptions = {
     ]
 };
 
-var searchQuery = param("s");
+var searchQuery = param("q");
 if(searchQuery){
     $("#search-query").val(searchQuery);
     executeSearch(searchQuery);
@@ -30,10 +30,8 @@ if(searchQuery){
 }
 
 function executeSearch(searchQuery){
-    // Assuming that this script is always called from baseURL/search/, it can
-    // be safely assumed that baseURL/index.json exists. This works even when
-    // the baseURL is something like https://example.com/v1/.
-    $.getJSON( "../index.json", function( data ) {
+    // Look for "index.json" in the same directory where this script is called.
+    $.getJSON( "index.json", function( data ) {
         var pages = data;
         var fuse = new Fuse(pages, fuseOptions);
         var result = fuse.search(searchQuery);
