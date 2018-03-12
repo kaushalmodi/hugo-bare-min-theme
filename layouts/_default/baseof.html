@@ -76,9 +76,17 @@
 
     <body lang="en">
         <div style="float: right;">
-            [ <a href="/tags/">tags</a>
-            | <a href="/categories/">categories</a>
-            | <a href="/search/"><strong>search</strong></a> ]
+            [
+            {{ with .Site.GetPage "taxonomyTerm" "tags" }}
+                <a href="{{ .Permalink }}">{{ .Title | lower }}</a>
+            {{ end }}
+            {{ with .Site.GetPage "taxonomyTerm" "categories" }}
+                | <a href="{{ .Permalink }}">{{ .Title | lower }}</a>
+            {{ end }}
+            {{ with .Site.GetPage "page" "search" }}
+                | <a href="{{ .Permalink }}"><strong>{{ .Title | lower }}</strong></a>
+            {{ end }}
+            ]
         </div>
         <br />
 
