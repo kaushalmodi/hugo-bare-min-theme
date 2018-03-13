@@ -28,9 +28,9 @@
     </p>
     <p>
         {{ if .Params.draft }}
-            <hr>
+            <hr />
             <div style="text-align: center;"><h2>This is a Draft</h2></div>
-            <hr>
+            <hr />
         {{ end }}
     </p>
 
@@ -80,7 +80,7 @@
 
     {{ if (not .Params.disable_debug) }}
         {{ with .Resources }}
-            <hr>
+            <hr />
             <h3>Resources</h3>
             <ul>
 	        {{ range . }}
@@ -98,7 +98,7 @@
         {{ end }}
 
         {{ with .Resources.ByType "page" }}
-            <hr>
+            <hr />
             <h3 id="sub-pages">Bundled Sub-pages</h3>
             {{ range . }}
                 <h4>{{ .Title }}</h4>
@@ -106,7 +106,7 @@
             {{ end }}
         {{ end }}
 
-        <hr>
+        <hr />
         <a id="debug"></a>
         {{ if (ge (partial "version_str2float.html" $.Hugo.Version) 0.33) }}
             <h3 id="page-debug">Page (Debug)</h3>
