@@ -1,15 +1,3 @@
-<!--
-     This file defines how a summary of a specific post should be presented.
-
-     This template does the following:
-     1. Shows the name of the post
-     2. Shows the date the post was created (from metadata in post markdown
-     source)
-     3. Displays a Hugo-generated summary of the post
-     4. Provides a link with text Read More that points to the post, only if
-     the summary is shorter than the full post.
--->
-
 <article class="summary">
     <header>
         <h1 class="post-title"><a href='{{ .Permalink }}'> {{ .Title }}</a> </h1>
@@ -26,8 +14,10 @@
     </div>
 
     <!-- https://gohugo.io/content/summaries/ -->
-    <!-- Show the 'Read more' link only if needed. -->
-    {{ if .Truncated }}
-        <a href='{{ .Permalink }}'>Read more</a>
+    <!-- Show the 'Read more' link only if the 'more' comment is used, or if the 'description' is set. -->
+    {{ if (or .Truncated .Description) }}
+        <div class="readmore">
+            <a href='{{ .Permalink }}'>Read more<span class="screen-readers-only" > about {{ .Title }}</span></a>
+        </div>
     {{ end }}
 </article>
