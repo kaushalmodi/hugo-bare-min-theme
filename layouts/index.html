@@ -13,7 +13,7 @@
 <p>
     <div class="pagination">
         <!-- https://discourse.gohugo.io/t/solved-big-pagination-need-add/6576/8?u=kaushalmodi -->
-        {{ $window := $.Site.Params.paginateWindow | default 1 }}
+        {{ $window := .Site.Params.paginateWindow | default 1 }}
         {{ if gt $paginator.TotalPages 1 }}
             {{ $total := $paginator.TotalPages }}
             {{ $size := add 7 (add $window $window) }}
@@ -61,10 +61,10 @@
 {{ if (eq 1 $paginator.PageNumber) }}
     <hr>
     <h3 id="debug">SiteInfo (Debug)</h3>
-    {{ partial "debugprint.html" $.Site }}
+    {{ partial "debugprint.html" .Site }}
     <hr>
     <h3 id="debug-menu">Menu (Debug)</h3>
-    {{ partial "debugprint.html" $.Site.Menus }}
+    {{ partial "debugprint.html" .Site.Menus }}
 {{ end }}
 
 {{ end }}
