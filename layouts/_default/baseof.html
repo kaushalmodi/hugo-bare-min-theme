@@ -75,20 +75,24 @@
     </head>
 
     <body lang="en">
-        <div style="float: right;">
-            [
-            {{ with .Site.GetPage "taxonomyTerm" "tags" }}
-                <a href="{{ .Permalink }}">{{ .Title | lower }}</a>
-            {{ end }}
-            {{ with .Site.GetPage "taxonomyTerm" "categories" }}
-                | <a href="{{ .Permalink }}">{{ .Title | lower }}</a>
-            {{ end }}
-            {{ with .Site.GetPage "page" "search" }}
-                | <a href="{{ .Permalink }}"><strong>{{ .Title | lower }}</strong></a>
-            {{ end }}
-            ]
-        </div>
-        <br />
+
+        {{ with .Site.Taxonomies }}
+            <div style="float: right;">
+                [
+                {{ $.Scratch.Set "first" true }}
+                {{ range $key,$val := . }}
+                    {{ with $.Site.GetPage "taxonomyTerm" $key }}
+                        {{ printf "%s <a href=\"%s\">%s</a>" (cond ($.Scratch.Get "first") "" "|") .Permalink (.Title | lower) | safeHTML }}
+                        {{ $.Scratch.Set "first" false }}
+                    {{ end }}
+                {{ end }}
+                {{ with $.Site.GetPage "page" "search" }}
+                    {{ printf "%s <a href=\"%s\"><strong>%s</strong></a>" "|" .Permalink (.Title | lower) | safeHTML }}
+                {{ end }}
+                ]
+            </div>
+            <br />
+        {{ end }}
 
         <div class="masthead-title"><a href="/">{{ .Site.Title }}</a></div>
         <div class="masthead-body">

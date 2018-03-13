@@ -12,17 +12,21 @@
     <h1 class="post-title">{{ .Title }}</h1>
 
     <!-- Taxonomy debug -->
-    {{ range $key, $val := .Params }}
-        {{ if (in (slice "tags" "categories" "series" "keywords") $key) }}
-            <p>
-                {{ printf "<span style=\"font-variant: small-caps;\">%s</span>:" $key | safeHTML }}
-                {{ with $.Site.GetPage "taxonomyTerm" $key }}
-                    {{ $taxonomy_page := . }}
-                    {{ range $val }}
-                        <a href="{{ printf "%s%s" $taxonomy_page.Permalink (. | urlize) }}">{{ . }}</a>
+    {{ $page := . }}
+    {{ with .Site.Taxonomies }}
+        {{ range $key,$_ := . }}
+            {{ with $page.Param $key }}
+                {{ $val := . }}
+                <p>
+                    {{ printf "<span style=\"font-variant: small-caps;\">%s</span>:" $key | safeHTML }}
+                    {{ with $.Site.GetPage "taxonomyTerm" $key }}
+                        {{ $taxonomy_page := . }}
+                        {{ range $val }}
+                            <a href="{{ printf "%s%s" $taxonomy_page.URL (. | urlize) }}">{{ . }}</a>
+                        {{ end }}
                     {{ end }}
-                {{ end }}
-            </p>
+                </p>
+            {{ end }}
         {{ end }}
     {{ end }}
 
