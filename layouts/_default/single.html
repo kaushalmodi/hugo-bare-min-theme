@@ -10,22 +10,22 @@
 
 <div class="post">
     <h1 class="post-title">{{ .Title }}</h1>
-    <p>
-        {{ if .Params.categories }}
-            Categories:
-            {{ range .Params.categories }}
-                <a href="/categories/{{ . | urlize }}">{{ . }}</a>
-            {{ end }}
+
+    <!-- Taxonomy debug -->
+    {{ range $key, $val := .Params }}
+        {{ if (in (slice "tags" "categories" "series" "keywords") $key) }}
+            <p>
+                {{ printf "<span style=\"font-variant: small-caps;\">%s</span>:" $key | safeHTML }}
+                {{ with $.Site.GetPage "taxonomyTerm" $key }}
+                    {{ $taxonomy_page := . }}
+                    {{ range $val }}
+                        <a href="{{ printf "%s%s" $taxonomy_page.Permalink (. | urlize) }}">{{ . }}</a>
+                    {{ end }}
+                {{ end }}
+            </p>
         {{ end }}
-    </p>
-    <p>
-        {{ if .Params.tags }}
-            Tags:
-            {{ range .Params.tags }}
-                <a href="/tags/{{ . | urlize }}">{{ . }}</a>
-            {{ end }}
-        {{ end }}
-    </p>
+    {{ end }}
+
     <p>
         {{ if .Params.draft }}
             <hr />
