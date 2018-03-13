@@ -115,6 +115,20 @@
             <hr>
         </div>
 
+        {{ with .GitInfo }} <!-- To enable this, put "enableGitInfo = true" in your site config.toml -->
+            This page was created/modified in commit <a href="{{ $.Site.Params.source.url }}/commit/{{- .Hash -}}">
+            {{- .AbbreviatedHash -}}</a> "{{ .Subject }}" on <b>{{ dateFormat "2006-01-02" .AuthorDate }}</b>.
+        {{ end }}
+
+        {{ with .File.Path }}
+            <br />
+            <div style="float: right;">
+                ✱ <i>Markdown <a href="{{ $.Site.Params.source.url }}/raw/master/{{ $.Site.Params.source.md_dir }}/{{ . }}">
+                source</a> of this page</i>
+            </div>
+            <div style="clear: both;"></div> <!-- Clear floats -->
+        {{ end }}
+
         {{ block "main" . }}{{ end }}
 
         <hr>

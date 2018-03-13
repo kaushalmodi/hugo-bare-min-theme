@@ -10,15 +10,6 @@
 
 <div class="post">
     <h1 class="post-title">{{ .Title }}</h1>
-    {{ with .GitInfo }} <!-- To enable this, put "enableGitInfo = true" in your site config.toml -->
-        This page was created/modified in commit <a href="{{ $.Site.Params.source.url }}/commit/{{- .Hash -}}">
-        {{- .AbbreviatedHash -}}</a> "{{ .Subject }}" on <b>{{ dateFormat "2006-01-02" .AuthorDate }}</b>.
-    {{ end }}
-    <div>
-        <br/>
-        <span style="float: right;">✱ <i>Markdown <a href="{{ $.Site.Params.source.url }}/raw/master/{{ $.Site.Params.source.md_dir }}/{{ .File.Path }}">source</a> of this page</i></span>
-        <br/>
-    </div>
     <p>
         {{ if .Params.categories }}
             Categories:

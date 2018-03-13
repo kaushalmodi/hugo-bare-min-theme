@@ -1,17 +1,5 @@
 {{ define "main" }}             <!-- List of all posts -->
 
-{{ with .GitInfo }} <!-- To enable this, put "enableGitInfo = true" in your site config.toml -->
-    This page was created/modified in commit <a href="{{ $.Site.Params.source.url }}/commit/{{- .Hash -}}">
-    {{- .AbbreviatedHash -}}</a> "{{ .Subject }}" on <b>{{ dateFormat "2006-01-02" .AuthorDate }}</b>.
-{{ end }}
-{{ with .File.Path }}
-    <div>
-        <br/>
-        <span style="float: right;">✱ <i>Markdown <a href="{{ $.Site.Params.source.url }}/raw/master/{{ $.Site.Params.source.md_dir }}/{{ . }}">source</a> of this page</i></span>
-        <br/>
-    </div>
-{{ end }}
-
 {{ if (eq .Kind "section") }}                          <!-- Section -->
     {{ if (eq .File.Path "") }} <!-- Regular section -->
         <h1>Posts in ‘{{ .Dir | default .Section }}’</h1>
