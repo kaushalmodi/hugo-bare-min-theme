@@ -30,6 +30,7 @@ These theme provides few customization hooks.
 
 [Params]
   description = "Description of the site."
+
   intro = """
 Text here is added to the header of each page.
 
@@ -42,7 +43,19 @@ Text here is added to the footer of each page.
 This can contain <b>HTML</b> and/or **Markdown**
 and can be multiple lines.
 """
+
+  # Custom favicon HTML
+  favicon = """
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="theme-color" content="#ffffff">
+"""
+
   custom_css = ["css/style.css"]  # assuming that you have the "static/css/style.css" file
+
   [Params.source]
     url = "https://your/site/repo/url"   # Needed if you want to see .GitInfo for a page
     md_dir = "content"                   # Needed if you want to get a link to Markdown source for each page
