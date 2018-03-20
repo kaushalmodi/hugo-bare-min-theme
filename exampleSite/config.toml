@@ -27,7 +27,9 @@ This is an Example Site for the <a href="https://github.com/kaushalmodi/hugo-bar
   footer = """
   [<a href="/">Test Site home</a>]
 """
+  # Note: It is *mandatory* to set "url" below if you want to set
+  # "md_dir" or "org_dir".
   [Params.source]
-    url = "https://github.com/kaushalmodi/hugo-bare-min-theme" # Mandatory, used in bare_min single.html, baseof.html
-    md_dir = "exampleSite/content"
-    # org_dir = "exampleSite/content-org"
+    url = "https://github.com/kaushalmodi/hugo-bare-min-theme" # Needed if you want to see .GitInfo for a page
+    md_dir = "exampleSite/content"                             # Needed if you want to get a link to Markdown source for each page
+    # org_dir = "exampleSite/content-org"                        # Needed if you want to get a link to the Org source (e.g. when using ox-hugo!)

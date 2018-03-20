@@ -43,10 +43,14 @@ This can contain <b>HTML</b> and/or **Markdown**
 and can be multiple lines.
 """
   [Params.source]
-    url = "https://your/site/repo/url" # Mandatory, used in bare_min single.html, baseof.html
-    md_dir = "content" # Used to create links from pages to the page Markdown sources
-    org_dir = "content-org" # Optional, but use if using ox-hugo!
+    url = "https://your/site/repo/url"   # Needed if you want to see .GitInfo for a page
+    md_dir = "content"                   # Needed if you want to get a link to Markdown source for each page
+    org_dir = "content-org"              # Needed if you want to get a link to the Org source (e.g. when using ox-hugo!)
 ```
 
-See the `Params` section in the [`config.toml` of this theme's `exampleSite`](https://github.com/kaushalmodi/hugo-bare-min-theme/blob/master/exampleSite/config.toml)
+**Note**: It is **mandatory** to set `.Site.Params.source.url` if you
+set `.Site.Params.source.md_dir` or `.Site.Params.source.org_dir`.
+
+See the `Params` section in the [`config.toml` of this theme's
+`exampleSite`](https://github.com/kaushalmodi/hugo-bare-min-theme/blob/master/exampleSite/config.toml)
 to get an example.
