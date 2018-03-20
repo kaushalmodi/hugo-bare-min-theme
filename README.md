@@ -42,6 +42,7 @@ Text here is added to the footer of each page.
 This can contain <b>HTML</b> and/or **Markdown**
 and can be multiple lines.
 """
+  custom_css = ["css/style.css"]  # assuming that you have the "static/css/style.css" file
   [Params.source]
     url = "https://your/site/repo/url"   # Needed if you want to see .GitInfo for a page
     md_dir = "content"                   # Needed if you want to get a link to Markdown source for each page
