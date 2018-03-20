@@ -1,3 +1,11 @@
+<!-- User-error checks -->
+{{- $err_common_msg := "\n Fix this issue *before* you start debugging the errors that follow.\n It is possible that those errors will go away once you fix this issue.\n" -}}
+{{- if (and .Site.Params.source.md_dir (not .Site.Params.source.url)) -}}
+    {{- errorf "You set .Site.Params.source.md_dir, but forgot to set .Site.Params.source.url!%s" $err_common_msg -}}
+{{- end -}}
+{{- if (and .Site.Params.source.org_dir (not .Site.Params.source.url)) -}}
+    {{- errorf "You set .Site.Params.source.org_dir, but forgot to set .Site.Params.source.url!%s" $err_common_msg -}}
+{{- end -}}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
     <head>
