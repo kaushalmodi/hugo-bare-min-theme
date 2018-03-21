@@ -2,6 +2,27 @@
 
 {{ partial "header_image.html" . }}
 
+<h3>Content</h3>
+{{ .Content }}
+
+{{ with .Resources }}
+    <hr />
+    <h3>Resources</h3>
+    <ul>
+	{{ range . }}
+	    {{ if .RelPermalink }}
+                {{ if (ge (partial "version_str2float.html" $.Hugo.Version) 0.33) }}
+	            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+                {{ else }}
+	            <li><a href="{{ .RelPermalink }}">{{ .RelPermalink }}</a></li>
+                {{ end }}
+	    {{ else }}
+	        <li>{{ .ResourceType | title }} (no link, only embedded in page)</li>
+	    {{ end }}
+	{{ end }}
+    </ul>
+{{ end }}
+
 <!-- Have the paginator list posts, sorted by last modified date, most recent first -->
 {{ $paginator := .Paginate (.Pages.ByLastmod.Reverse) 10 }}
 
@@ -66,6 +87,9 @@
     <hr />
     <h3 id="debug">SiteInfo (Debug)</h3>
     {{ partial "debugprint.html" .Site }}
+    <hr />
+    <h3 id="file-debug">File Object (Debug)</h3>
+    {{ partial "debugprint.html" .File }}
     <hr />
     <h3 id="debug-menu">Menu (Debug)</h3>
     {{ partial "debugprint.html" .Site.Menus }}
