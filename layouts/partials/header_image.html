@@ -9,14 +9,14 @@
 	<figcaption>
             {{ with .Params }}
 	        {{ with .caption }}
-	            {{ . }}
+	            {{ . | markdownify }}
                 {{ end }}
                 {{ if .credit }}
                     {{ printf "(Credit:&nbsp;" | safeHTML -}}
                     {{- with .url -}}
                         {{- printf "<a href=\"%s\">" . | safeHTML -}}
                     {{- end -}}
-                    {{- .credit -}}
+                    {{- .credit | markdownify -}}
                     {{- with .url -}}
                         {{- printf "</a>" | safeHTML -}}
                     {{- end -}}
