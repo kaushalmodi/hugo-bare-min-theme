@@ -113,7 +113,7 @@
                 {{ $.Scratch.Set "first" true }}
                 {{ range $key,$val := . }}
                     {{ with $.Site.GetPage "taxonomyTerm" $key }}
-                        {{ printf "%s <a href=\"%s\">%s</a>" (cond ($.Scratch.Get "first") "" "|") .Permalink (.Title | lower) | safeHTML }}
+                        {{ printf "%s <a href=\"%s\">%s</a>" (cond ($.Scratch.Get "first") "" "|") .Permalink .Type | safeHTML }}
                         {{ $.Scratch.Set "first" false }}
                     {{ end }}
                 {{ end }}
