@@ -39,9 +39,11 @@
                 {{ $cur := .PageNumber }}
                 {{ if in ($.Scratch.Get "show") $cur }}
                     <a href="{{ .URL }}">
-                        {{- if eq . $paginator -}}<b>{{- end -}}
+                        {{- if eq . $paginator -}}<b>
+                        {{- end -}}
                         {{ .PageNumber }}
-                        {{- if eq . $paginator -}}</b>{{- end -}}
+                        {{- if eq . $paginator -}}</b>
+                        {{- end -}}
                     </a>
                 {{ else if in (slice 2 (sub $total 1)) $cur }}
                     <a name="">&hellip;</a>
@@ -61,10 +63,10 @@
 </p>
 
 {{ if (eq 1 $paginator.PageNumber) }}
-    <hr>
+    <hr />
     <h3 id="debug">SiteInfo (Debug)</h3>
     {{ partial "debugprint.html" .Site }}
-    <hr>
+    <hr />
     <h3 id="debug-menu">Menu (Debug)</h3>
     {{ partial "debugprint.html" .Site.Menus }}
 {{ end }}
