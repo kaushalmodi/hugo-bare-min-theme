@@ -1,0 +1,32 @@
+<!-- Header image if any -->
+{{ with .Resources.GetMatch "*featured*" }}
+    <h3>Featured/Header Image</h3>
+    {{ $original := . }}
+    {{ $size := .Params.size | default 800 }}
+    {{ $image := $original.Resize (printf "%dx" $size) }}
+    <figure style="width: {{ add $image.Width 3 }}px; padding: 3px; background-color: #cccc">
+	<img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}">
+	<figcaption>
+            {{ with .Params }}
+	        {{ with .caption }}
+	            {{ . }}
+                {{ end }}
+                {{ if .credit }}
+                    {{ printf "(Credit:&nbsp;" | safeHTML -}}
+                    {{- with .url -}}
+                        {{- printf "<a href=\"%s\">" . | safeHTML -}}
+                    {{- end -}}
+                    {{- .credit -}}
+                    {{- with .url -}}
+                        {{- printf "</a>" | safeHTML -}}
+                    {{- end -}}
+                    {{- printf ")" | safeHTML }}
+                {{ end }}
+            {{ end }}
+	</figcaption>
+    </figure>
+    {{ with .Params }}
+        <h4 id="featured-resource-params-debug">Featured Resource Params (Debug)</h4>
+        {{ partial "debugprint.html" . }}
+    {{ end }}
+{{ end }}

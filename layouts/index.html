@@ -1,5 +1,7 @@
 {{ define "main" }}
 
+{{ partial "header_image.html" . }}
+
 <!-- Have the paginator list posts, sorted by last modified date, most recent first -->
 {{ $paginator := .Paginate (.Pages.ByLastmod.Reverse) 10 }}
 

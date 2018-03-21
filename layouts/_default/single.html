@@ -47,37 +47,7 @@
     {{ end }}
     <hr />
 
-    <!-- Header image if any -->
-    {{ with .Resources.GetMatch "*featured*" }}
-        <h3>Featured/Header Image</h3>
-        {{ $original := . }}
-        {{ $image := $original.Resize "800x" }}
-        <figure style="width: {{ add $image.Width 3 }}px; padding: 3px; background-color: #cccc">
-	    <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}">
-	    <figcaption>
-                {{ with .Params }}
-	            {{ with .caption }}
-	                {{ . }}
-                    {{ end }}
-                    {{ if .credit }}
-                        {{ printf "(Credit:&nbsp;" | safeHTML -}}
-                        {{- with .url -}}
-                            {{- printf "<a href=\"%s\">" . | safeHTML -}}
-                        {{- end -}}
-                        {{- .credit -}}
-                        {{- with .url -}}
-                            {{- printf "</a>" | safeHTML -}}
-                        {{- end -}}
-                        {{- printf ")" | safeHTML }}
-                    {{ end }}
-                {{ end }}
-	    </figcaption>
-        </figure>
-        {{ with .Params }}
-            <h4 id="featured-resource-params-debug">Featured Resource Params (Debug)</h4>
-            {{ partial "debugprint.html" . }}
-        {{ end }}
-    {{ end }}
+    {{ partial "header_image.html" . }}
 
     <h3>Content</h3>
     {{ .Content }}
