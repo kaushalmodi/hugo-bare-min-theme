@@ -5,7 +5,10 @@
 
 {{ partial "header_image.html" . }}
 
-{{ .Content }}
+{{ with .Content }}
+    <h3>Content</h3>
+    {{ . }}
+{{ end }}
 
 {{ if .Param .Type }}
     <!-- https://discourse.gohugo.io/t/solved-creating-index-md-for-taxonomyterm-pages-tags-categories-hangs-hugo/11121/13?u=kaushalmodi -->

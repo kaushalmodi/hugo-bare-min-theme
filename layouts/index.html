@@ -2,8 +2,10 @@
 
 {{ partial "header_image.html" . }}
 
-<h3>Content</h3>
-{{ .Content }}
+{{ with .Content }}
+    <h3>Content</h3>
+    {{ . }}
+{{ end }}
 
 {{ with .Resources }}
     <hr />
