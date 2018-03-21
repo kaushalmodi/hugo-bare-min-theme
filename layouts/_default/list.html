@@ -1,5 +1,7 @@
 {{ define "main" }}             <!-- List of all posts -->
 
+{{ partial "header_image.html" . }}
+
 {{ if (eq .Kind "section") }}                          <!-- Section -->
     {{ if (eq .File.Path "") }} <!-- Regular section -->
         <h1>Posts in ‘{{ .Dir | default .Section }}’</h1>
@@ -11,8 +13,6 @@
     <!-- If the page is /tags/foo/, .Data.Singular = "tag", .Data.Term = "foo" -->
     <h1>Posts with the {{ .Data.Singular }} ‘{{ .Data.Term }}’</h1>
 {{ end }}
-
-{{ partial "header_image.html" . }}
 
 <section>
     <ul class="post-list">
