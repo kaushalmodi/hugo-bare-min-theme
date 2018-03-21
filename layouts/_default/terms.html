@@ -5,6 +5,26 @@
 
 {{ partial "header_image.html" . }}
 
+{{ .Content }}
+
+{{ with .Resources }}
+    <hr />
+    <h3>Resources</h3>
+    <ul>
+	{{ range . }}
+	    {{ if .RelPermalink }}
+                {{ if (ge (partial "version_str2float.html" $.Hugo.Version) 0.33) }}
+	            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+                {{ else }}
+	            <li><a href="{{ .RelPermalink }}">{{ .RelPermalink }}</a></li>
+                {{ end }}
+	    {{ else }}
+	        <li>{{ .ResourceType | title }} (no link, only embedded in page)</li>
+	    {{ end }}
+	{{ end }}
+    </ul>
+{{ end }}
+
 <h1>Archive of posts, by {{ $singular_term }}</h1>
 <ul>
     {{ range .Data.Terms.Alphabetical }}
