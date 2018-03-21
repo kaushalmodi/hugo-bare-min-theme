@@ -93,14 +93,14 @@
                 <br />
                 {{ $.Scratch.Set "__bundle" "n/a" }}
                 {{ if (eq .File.Path "") }}
-                    {{ $.Scratch.Set "__bundle" "n/a (regular list page)" }}
+                    {{ $.Scratch.Set "__bundle" "n/a (regular \"list\" page)" }}
                 {{ else }}
                     {{ if (eq .File.BaseFileName "_index") }}
                         {{ $.Scratch.Set "__bundle" "branch" }}
                     {{ else if (eq .File.BaseFileName "index") }}
                         {{ $.Scratch.Set "__bundle" "leaf" }}
                     {{ else }}
-                        {{ $.Scratch.Set "__bundle" "regular page" }}
+                        {{ $.Scratch.Set "__bundle" "n/a (regular page)" }}
                     {{ end }}
                 {{ end }}
                 {{ printf "<span style=\"font-variant: small-caps;\">Bundle</span>: <strong>%s</strong>" ($.Scratch.Get "__bundle") | safeHTML }}
