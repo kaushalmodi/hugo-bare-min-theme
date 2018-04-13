@@ -6,12 +6,14 @@
 <meta property="og:url" content="{{ .Permalink }}" />
 {{ with .Params.images }}
     {{ range first 6 . }}
-        {{ $image := . }}
-        {{ $image_link_absolute := (findRE "^/" $image) }}
-        {{ if $image_link_absolute }}
-            <meta name="og:image" content="{{ $image | absURL }}"/>
+        {{ if (findRE "^/" .) }} <!-- If image link has a leading slash -->
+            <!-- Cannot use absURL below because it doesn't work as expected if baseURL has a subdir.
+                 See https://hugo-sandbox.netlify.com/subdir-canonify-true/ .
+            -->
+            {{ $baseurl_no_trailing_slash := $.Site.BaseURL | replaceRE "/$" "" }}
+            <meta name="og:image" content="{{ (printf "%s%s" $baseurl_no_trailing_slash .) }}"/>
         {{ else }}
-            <meta name="og:image" content="{{ (printf "%s%s" $permalink $image) }}"/>
+            <meta name="og:image" content="{{ (printf "%s%s" $permalink .) }}"/>
         {{ end }}
     {{ end }}
 {{ end }}
@@ -30,12 +32,11 @@
     {{ end }}
 {{ end }}
 {{ with .Params.audio }}
-    {{ $audio := . }}
-    {{ $audio_link_absolute := (findRE "^/" $audio) }}
-    {{ if $audio_link_absolute }}
-        <meta name="og:audio" content="{{ $audio | absURL }}"/>
+    {{ if (findRE "^/" .) }} <!-- If audio link has a leading slash -->
+        {{ $baseurl_no_trailing_slash := $.Site.BaseURL | replaceRE "/$" "" }}
+        <meta name="og:audio" content="{{ (printf "%s%s" $baseurl_no_trailing_slash .) }}"/>
     {{ else }}
-        <meta name="og:audio" content="{{ (printf "%s%s" $permalink $audio) }}"/>
+        <meta name="og:audio" content="{{ (printf "%s%s" $permalink .) }}"/>
     {{ end }}
 {{ end }}
 {{ with .Params.locale }}
@@ -46,12 +47,11 @@
 {{ end }}
 {{ with .Params.videos }}
     {{ range . }}
-        {{ $video := . }}
-        {{ $video_link_absolute := (findRE "^/" $video) }}
-        {{ if $video_link_absolute }}
-            <meta name="og:video" content="{{ $video | absURL }}"/>
+        {{ if (findRE "^/" .) }} <!-- If video link has a leading slash -->
+            {{ $baseurl_no_trailing_slash := $.Site.BaseURL | replaceRE "/$" "" }}
+            <meta name="og:video" content="{{ (printf "%s%s" $baseurl_no_trailing_slash .) }}"/>
         {{ else }}
-            <meta name="og:video" content="{{ (printf "%s%s" $permalink $video) }}"/>
+            <meta name="og:video" content="{{ (printf "%s%s" $permalink .) }}"/>
         {{ end }}
     {{ end }}
 {{ end }}

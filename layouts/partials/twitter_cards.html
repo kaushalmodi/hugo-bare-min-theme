@@ -4,9 +4,12 @@
     <!-- As per https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/summary-card-with-large-image,
          the required card property is "twitter:image", not "twitter:image:src". -->
     {{- $image := (index . 0) -}}
-    {{- $image_link_absolute := (findRE "^/" $image) -}}
-    {{- if $image_link_absolute -}}
-        <meta name="twitter:image" content="{{- $image | absURL -}}"/>
+    {{ if (findRE "^/" $image) }} <!-- If image link has a leading slash -->
+        <!-- Cannot use absURL below because it doesn't work as expected if baseURL has a subdir.
+             See https://hugo-sandbox.netlify.com/subdir-canonify-true/ .
+        -->
+        {{ $baseurl_no_trailing_slash := $.Site.BaseURL | replaceRE "/$" "" }}
+        <meta name="twitter:image" content="{{- (printf "%s%s" $baseurl_no_trailing_slash $image) -}}"/>
     {{- else -}}
         <meta name="twitter:image" content="{{- (printf "%s%s" $permalink $image) -}}"/>
     {{- end -}}
@@ -21,9 +24,9 @@
         <meta name="twitter:card" content="summary"/>
         {{- with $.Site.Params.images -}}
             {{- $image := (index . 0) -}}
-            {{- $image_link_absolute := (findRE "^/" $image) -}}
-            {{- if $image_link_absolute -}}
-                <meta name="twitter:image" content="{{- $image | absURL -}}"/>
+            {{ if (findRE "^/" $image) }} <!-- If image link has a leading slash -->
+                {{ $baseurl_no_trailing_slash := $.Site.BaseURL | replaceRE "/$" "" }}
+                <meta name="twitter:image" content="{{- (printf "%s%s" $baseurl_no_trailing_slash $image) -}}"/>
             {{- else -}}
                 <meta name="twitter:image" content="{{- (printf "%s%s" $permalink $image) -}}"/>
             {{- end -}}
