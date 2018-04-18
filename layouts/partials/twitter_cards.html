@@ -1,4 +1,4 @@
-{{ $permalink := .Permalink }}
+{{ $permalink_pretty := .Permalink | replaceRE "\\.html$" "/" }} <!-- Always have a trailing slash, even with uglyURLs enabled. -->
 {{- with $.Params.images -}}
     <meta name="twitter:card" content="summary_large_image"/>
     <!-- As per https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/summary-card-with-large-image,
@@ -11,7 +11,7 @@
         {{ $baseurl_no_trailing_slash := $.Site.BaseURL | replaceRE "/$" "" }}
         <meta name="twitter:image" content="{{- (printf "%s%s" $baseurl_no_trailing_slash $image) -}}"/>
     {{- else -}}
-        <meta name="twitter:image" content="{{- (printf "%s%s" $permalink $image) -}}"/>
+        <meta name="twitter:image" content="{{- (printf "%s%s" $permalink_pretty $image) -}}"/>
     {{- end -}}
 {{ else -}}
     {{- $images := $.Resources.ByType "image" -}}
@@ -28,7 +28,7 @@
                 {{ $baseurl_no_trailing_slash := $.Site.BaseURL | replaceRE "/$" "" }}
                 <meta name="twitter:image" content="{{- (printf "%s%s" $baseurl_no_trailing_slash $image) -}}"/>
             {{- else -}}
-                <meta name="twitter:image" content="{{- (printf "%s%s" $permalink $image) -}}"/>
+                <meta name="twitter:image" content="{{- (printf "%s%s" $permalink_pretty $image) -}}"/>
             {{- end -}}
         {{- end -}}
     {{- end -}}

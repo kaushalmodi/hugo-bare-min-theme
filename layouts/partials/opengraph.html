@@ -1,4 +1,5 @@
 {{ $permalink := .Permalink }}
+{{ $permalink_pretty := .Permalink | replaceRE "\\.html$" "/" }} <!-- Always have a trailing slash, even with uglyURLs enabled. -->
 <meta property="og:title" content="{{ .Title }}" />
 <meta property="og:description"
       content="{{ with .Description }}{{ . | markdownify | plainify }}{{ else }}{{ if .IsPage }}{{ partial "summary_minus_toc.html" . | markdownify | plainify }}{{ else }}{{ with .Site.Params.description }}{{ . | markdownify | plainify }}{{ end }}{{ end }}{{ end }}" />
@@ -13,7 +14,7 @@
             {{ $baseurl_no_trailing_slash := $.Site.BaseURL | replaceRE "/$" "" }}
             <meta name="og:image" content="{{ (printf "%s%s" $baseurl_no_trailing_slash .) }}"/>
         {{ else }}
-            <meta name="og:image" content="{{ (printf "%s%s" $permalink .) }}"/>
+            <meta name="og:image" content="{{ (printf "%s%s" $permalink_pretty .) }}"/>
         {{ end }}
     {{ end }}
 {{ end }}
@@ -36,7 +37,7 @@
         {{ $baseurl_no_trailing_slash := $.Site.BaseURL | replaceRE "/$" "" }}
         <meta name="og:audio" content="{{ (printf "%s%s" $baseurl_no_trailing_slash .) }}"/>
     {{ else }}
-        <meta name="og:audio" content="{{ (printf "%s%s" $permalink .) }}"/>
+        <meta name="og:audio" content="{{ (printf "%s%s" $permalink_pretty .) }}"/>
     {{ end }}
 {{ end }}
 {{ with .Params.locale }}
@@ -51,7 +52,7 @@
             {{ $baseurl_no_trailing_slash := $.Site.BaseURL | replaceRE "/$" "" }}
             <meta name="og:video" content="{{ (printf "%s%s" $baseurl_no_trailing_slash .) }}"/>
         {{ else }}
-            <meta name="og:video" content="{{ (printf "%s%s" $permalink .) }}"/>
+            <meta name="og:video" content="{{ (printf "%s%s" $permalink_pretty .) }}"/>
         {{ end }}
     {{ end }}
 {{ end }}
