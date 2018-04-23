@@ -40,7 +40,7 @@
 {{ $typeIsSpecial              := (or $typeIsWeightedPage) }}
 
 {{ if $typeIsBool }}
-    {{ printf "<span class=\"debugprint\"><span class=\"%#v\">%#v</span></span>" $value $value | safeHTML }}
+    {{ printf `<span class="debugprint"><span class="%#v">%#v</span></span>` $value $value | safeHTML }}
 {{ else if (or $typeIsNumber $typeIsString) }}
     <!-- Use %#v for strings so that their values always get double-quoted.
          That is helpful to tell if a space char is within a string. -->
@@ -62,12 +62,12 @@
                     {{ if $type1IsTime }}
                         <!-- Print the date only if it is not at its initial value of Jan 1, 0001 -->
                         {{ if (ne "0001-01-01" ($value1.Format "2006-01-02")) }}
-                            {{ printf "<tr><td class=\"key\">%s</td><td class=\"type\">%s</td><td class=\"value\">" $key1 $type1 | safeHTML }}
+                            {{ printf `<tr><td class="key">%s</td><td class="type">%s</td><td class="value">` $key1 $type1 | safeHTML }}
                             {{ partial "debugprint.html" $value1 }} <!-- Recursive call FTW! -->
                             {{ printf "</td></tr>" | safeHTML }}
                         {{ end }}
                     {{ else }}
-                        {{ printf "<tr><td class=\"key\">%s</td><td class=\"type\">%s</td><td class=\"value\">" $key1 $type1 | safeHTML }}
+                        {{ printf `<tr><td class="key">%s</td><td class="type">%s</td><td class="value">` $key1 $type1 | safeHTML }}
                         {{ partial "debugprint.html" $value1 }} <!-- Recursive call FTW! -->
                         {{ printf "</td></tr>" | safeHTML }}
                     {{ end }}
@@ -83,7 +83,7 @@
             <table class="debugprint">
                 <tr><th class="key">SiteInfo Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $siteVarNames }}
-                    {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
+                    {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
                     {{ partial "debugprint.html" (index $siteVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
@@ -94,7 +94,7 @@
             <table class="debugprint">
                 <tr><th class="key">GitInfo Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $gitInfoVarNames }}
-                    {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
+                    {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
                     {{ partial "debugprint.html" (index $gitInfoVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
@@ -105,7 +105,7 @@
             <table class="debugprint">
                 <tr><th class="key">OutputFormat Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $OutputFormatVarNames }}
-                    {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
+                    {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
                     {{ partial "debugprint.html" (index $OutputFormatVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
@@ -118,7 +118,7 @@
             <table class="debugprint">
                 <tr><th class="key">FileInfo Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $FileInfoVarNames }}
-                    {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
+                    {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
                     {{ partial "debugprint.html" (index $FileInfoVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
@@ -129,29 +129,29 @@
             <table class="debugprint">
                 <tr><th class="key">Page Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $PageVarNames }}
-                    {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
+                    {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
                     {{ partial "debugprint.html" (index $PageVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
                 {{ with .Next }}
-                    {{ printf "<tr><td class=\"key\">Next</td><td class=\"value\"><a href=\"%s\">%s</a></td></tr>" .Permalink .Title | safeHTML }}
+                    {{ printf `<tr><td class="key">Next</td><td class="value"><a href="%s">%s</a></td></tr>` .Permalink .Title | safeHTML }}
                 {{ else }}
-                    {{ printf "<tr><td class=\"key\">Next</td><td class=\"value\">None</td></tr>" | safeHTML }}
+                    {{ printf `<tr><td class="key">Next</td><td class="value">None</td></tr>` | safeHTML }}
                 {{ end }}
                 {{ with .Prev }}
-                    {{ printf "<tr><td class=\"key\">Prev</td><td class=\"value\"><a href=\"%s\">%s</a></td></tr>" .Permalink .Title | safeHTML }}
+                    {{ printf `<tr><td class="key">Prev</td><td class="value"><a href="%s">%s</a></td></tr>` .Permalink .Title | safeHTML }}
                 {{ else }}
-                    {{ printf "<tr><td class=\"key\">Prev</td><td class=\"value\">None</td></tr>" | safeHTML }}
+                    {{ printf `<tr><td class="key">Prev</td><td class="value">None</td></tr>` | safeHTML }}
                 {{ end }}
                 {{ with .NextInSection }}
-                    {{ printf "<tr><td class=\"key\">NextInSection</td><td class=\"value\"><a href=\"%s\">%s</a></td></tr>" .Permalink .Title | safeHTML }}
+                    {{ printf `<tr><td class="key">NextInSection</td><td class="value"><a href="%s">%s</a></td></tr>` .Permalink .Title | safeHTML }}
                 {{ else }}
-                    {{ printf "<tr><td class=\"key\">NextInSection</td><td class=\"value\">None</td></tr>" | safeHTML }}
+                    {{ printf `<tr><td class="key">NextInSection</td><td class="value">None</td></tr>` | safeHTML }}
                 {{ end }}
                 {{ with .PrevInSection }}
-                    {{ printf "<tr><td class=\"key\">PrevInSection</td><td class=\"value\"><a href=\"%s\">%s</a></td></tr>" .Permalink .Title | safeHTML }}
+                    {{ printf `<tr><td class="key">PrevInSection</td><td class="value"><a href="%s">%s</a></td></tr>` .Permalink .Title | safeHTML }}
                 {{ else }}
-                    {{ printf "<tr><td class=\"key\">PrevInSection</td><td class=\"value\">None</td></tr>" | safeHTML }}
+                    {{ printf `<tr><td class="key">PrevInSection</td><td class="value">None</td></tr>` | safeHTML }}
                 {{ end }}
             </table>
         {{ else if $typeIsMenuEntry }} <!-- https://github.com/gohugoio/hugo/blob/master/hugolib/menu.go -->
@@ -160,7 +160,7 @@
             <table class="debugprint">
                 <tr><th class="key">MenuEntry Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $MenuEntryVarNames }}
-                    {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
+                    {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
                     {{ partial "debugprint.html" (index $MenuEntryVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
@@ -171,7 +171,7 @@
             <table class="debugprint">
                 <tr><th class="key">OrderedTaxonomyEntry Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $OrderedTaxonomyEntryVarNames }}
-                    {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
+                    {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
                     {{ partial "debugprint.html" (index $OrderedTaxonomyEntryVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}
@@ -187,7 +187,7 @@
             <table class="debugprint">
                 <tr><th class="key">Resource Variable</th><th class="value">Value</th></tr>
                 {{ range $idx, $elem := $ResourceVarNames }}
-                    {{ printf "<tr><td class=\"key\">%s</td><td class=\"value\">" $elem | safeHTML }}
+                    {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML }}
                     {{ partial "debugprint.html" (index $ResourceVarSymbols $idx) }} <!-- Recursive call FTW! -->
                     {{ printf "</td></tr>" | safeHTML }}
                 {{ end }}

@@ -86,14 +86,14 @@
 
         <div style="float: left;">
             <small>
-                {{ printf "<span style=\"font-variant: small-caps;\">.Kind</span> (<strong>%s</strong>):" .Kind | safeHTML }}
-                {{ printf "<span style=\"font-variant: small-caps;\">.Type</span> (<strong>%s</strong>) /" .Type | safeHTML }}
-                {{ printf "<span style=\"font-variant: small-caps;\">.Layout</span> (<strong>%s</strong>)" .Layout | safeHTML }}
+                {{ printf `<span style="font-variant: small-caps;">.Kind</span> (<strong>%s</strong>):` .Kind | safeHTML }}
+                {{ printf `<span style="font-variant: small-caps;">.Type</span> (<strong>%s</strong>) /` .Type | safeHTML }}
+                {{ printf `<span style="font-variant: small-caps;">.Layout</span> (<strong>%s</strong>)` .Layout | safeHTML }}
 
                 <br />
                 {{ $.Scratch.Set "__bundle" "n/a" }}
                 {{ if (eq .File.Path "") }}
-                    {{ $.Scratch.Set "__bundle" "n/a (regular \"list\" page)" }}
+                    {{ $.Scratch.Set "__bundle" `n/a (regular "list" page)` }}
                 {{ else }}
                     {{ if (eq .File.BaseFileName "_index") }}
                         {{ $.Scratch.Set "__bundle" "branch" }}
@@ -103,7 +103,7 @@
                         {{ $.Scratch.Set "__bundle" "n/a (regular page)" }}
                     {{ end }}
                 {{ end }}
-                {{ printf "<span style=\"font-variant: small-caps;\">Bundle</span>: <strong>%s</strong>" ($.Scratch.Get "__bundle") | safeHTML }}
+                {{ printf `<span style="font-variant: small-caps;">Bundle</span>: <strong>%s</strong>` ($.Scratch.Get "__bundle") | safeHTML }}
             </small>
         </div>
 
@@ -113,12 +113,12 @@
                 {{ $.Scratch.Set "first" true }}
                 {{ range $key,$val := . }}
                     {{ with $.Site.GetPage "taxonomyTerm" $key }}
-                        {{ printf "%s <a href=\"%s\">%s</a>" (cond ($.Scratch.Get "first") "" "|") .Permalink .Type | safeHTML }}
+                        {{ printf `%s <a href="%s">%s</a>` (cond ($.Scratch.Get "first") "" "|") .Permalink .Type | safeHTML }}
                         {{ $.Scratch.Set "first" false }}
                     {{ end }}
                 {{ end }}
                 {{ with $.Site.GetPage "page" "search" }}
-                    {{ printf "%s <a href=\"%s\"><strong>%s</strong></a>" "|" .Permalink (.Title | lower) | safeHTML }}
+                    {{ printf `%s <a href="%s"><strong>%s</strong></a>` "|" .Permalink (.Title | lower) | safeHTML }}
                 {{ end }}
                 ]
             </div>
@@ -186,7 +186,7 @@
             <a href="https://github.com/kaushalmodi/hugo-bare-min-theme"><code>hugo-bare-min-theme</code></a> + Hugo <b>{{ .Hugo.Version }}</b>
             {{ with .Hugo.CommitHash }}
                 (commit
-                {{ . | replaceRE "^[0-9a-f]{7,}" "<a href=\"https://github.com/gohugoio/hugo/commit/${0}\">${0}</a>" | replaceRE ":chroma-([0-9a-f]{7,})" ", using Chroma commit <a href=\"https://github.com/alecthomas/chroma/commit/${1}\">${1}</a>" | safeHTML -}}
+                {{ . | replaceRE "^[0-9a-f]{7,}" `<a href="https://github.com/gohugoio/hugo/commit/${0}">${0}</a>` | replaceRE ":chroma-([0-9a-f]{7,})" `, using Chroma commit <a href="https://github.com/alecthomas/chroma/commit/${1}">${1}</a>` | safeHTML -}}
                 )
             {{ end }}.
         </small>

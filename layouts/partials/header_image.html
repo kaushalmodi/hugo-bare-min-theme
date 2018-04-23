@@ -14,7 +14,7 @@
                 {{ if .credit }}
                     {{ printf "(Credit:&nbsp;" | safeHTML -}}
                     {{- with .url -}}
-                        {{- printf "<a href=\"%s\">" . | safeHTML -}}
+                        {{- printf `<a href="%s">` . | safeHTML -}}
                     {{- end -}}
                     {{- .credit | markdownify -}}
                     {{- with .url -}}
