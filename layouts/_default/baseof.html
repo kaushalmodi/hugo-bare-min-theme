@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
     <head>
-        <link href="http://gmpg.org/xfn/11" rel="profile">
+        <link href="https://gmpg.org/xfn/11" rel="profile">
         <meta charset="utf-8">
         <!-- Above is a short hand for the below line. -->
         <!-- http://htmldog.com/guides/html/intermediate/metatags/ -->
@@ -17,6 +17,10 @@
 
         <!-- Enable responsiveness on mobile devices-->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+
+        <!-- No referrer: https://webbkoll.dataskydd.net/en/ -->
+        <meta name="referrer" content="no-referrer">
+
         <title>
             {{ if (eq .Kind "home") }}
                 {{ .Site.Title }}
