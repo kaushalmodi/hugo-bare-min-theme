@@ -1,6 +1,25 @@
 The **Bare Min** theme is heavily inspired from [the better
 mother-loving website](http://bettermotherfuckingwebsite.com/).
 
+## Minimum requirement
+
+Hugo 0.42
+
+## Theme components
+This theme is composed of the base theme "hugo-bare-min-theme", and
+the "hugo-debugprint" component.
+
+To use this theme, you need to clone this theme and the component(s) too:
+```shell
+cd HUGO_SITE_DIR/themes
+git clone https://github.com/kaushalmodi/hugo-bare-min-theme
+git clone https://github.com/kaushalmodi/hugo-debugprint
+```
+
+**Do not change the cloned repo directory names.**
+
+## Theme Concept
+
 It was designed to:
 
 -   Get rid of all visual clutter (CSS, JS, etc.)
@@ -9,8 +28,12 @@ It was designed to:
     while developing Hugo sites, where focus stays on content
     development.
 
+## Screenshots
+
 [![Bare Min Theme
 Screenshot](https://raw.githubusercontent.com/kaushalmodi/hugo-bare-min-theme/master/images/screenshot.png)](https://ox-hugo.scripter.co/test/posts/keyword-collection/)
+
+## Examples
 
 This theme is being used by:
 
