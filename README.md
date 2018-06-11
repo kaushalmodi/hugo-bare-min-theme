@@ -5,7 +5,7 @@ It was designed to:
 
 -   Get rid of all visual clutter (CSS, JS, etc.)
 -   Allow easily seeing debug information ([`debugprint.html`
-    partial](https://github.com/kaushalmodi/hugo-bare-min-theme/blob/master/layouts/partials/debugprint.html))
+    partial](https://github.com/kaushalmodi/hugo-debugprint/blob/master/layouts/partials/debugprint.html))
     while developing Hugo sites, where focus stays on content
     development.
 

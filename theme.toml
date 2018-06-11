@@ -8,7 +8,7 @@ description = "A bare minimum theme for Hugo (https://gohugo.io) to help develop
 homepage = "https://hugo-bare-min.netlify.com/"
 tags = ["minimal", "debug", "development"]
 features = []
-min_version = "0.32"
+min_version = "0.42-DEV"
 
 [author]
   name = "Kaushal Modi"
