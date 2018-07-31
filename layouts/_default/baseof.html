@@ -56,7 +56,9 @@
          .masthead-body {
              font-size: 0.8em;
          }
-         {{ partial "debugprint.css" | safeCSS }}
+         {{ if (not ($.Param "disable_debug")) }}
+             {{ partial "debugprint.css" | safeCSS }}
+         {{ end }}
          /* Captions */
          figcaption,
          .src-block-caption,

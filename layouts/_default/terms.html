@@ -40,15 +40,17 @@
     {{ end }}
 </ul>
 
-<hr>
-<a id="debug"></a>
-{{ if (ge (partial "version_str2float.html" $.Hugo.Version) 0.33) }}
-    <h3 id="page-debug">Page (Debug)</h3>
-    {{ partial "debugprint.html" . }}
+{{ if (not ($.Param "disable_debug")) }}
+    <hr>
+    <a id="debug"></a>
+    {{ if (ge (partial "version_str2float.html" $.Hugo.Version) 0.33) }}
+        <h3 id="page-debug">Page (Debug)</h3>
+        {{ partial "debugprint.html" . }}
+    {{ end }}
+    <h3 id="file-debug">File Object (Debug)</h3>
+    {{ partial "debugprint.html" .File }}
+    <h3 id="taxonomy-debug">Ordered Taxonomy (Debug)</h3>
+    {{ partial "debugprint.html" .Data.Terms.Alphabetical }}
 {{ end }}
-<h3 id="file-debug">File Object (Debug)</h3>
-{{ partial "debugprint.html" .File }}
-<h3 id="taxonomy-debug">Ordered Taxonomy (Debug)</h3>
-{{ partial "debugprint.html" .Data.Terms.Alphabetical }}
 
 {{ end }}

@@ -52,7 +52,7 @@
     <h3>Content</h3>
     {{ .Content }}
 
-    {{ if (not .Params.disable_debug) }}
+    {{ if (not ($.Param "disable_debug")) }}
         {{ with .Resources }}
             <hr />
             <h3 id="resources">Resources</h3>

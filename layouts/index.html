@@ -85,16 +85,18 @@
     </div>
 </p>
 
-{{ if (eq 1 $paginator.PageNumber) }}
-    <hr />
-    <h3 id="debug">SiteInfo (Debug)</h3>
-    {{ partial "debugprint.html" .Site }}
-    <hr />
-    <h3 id="file-debug">File Object (Debug)</h3>
-    {{ partial "debugprint.html" .File }}
-    <hr />
-    <h3 id="debug-menu">Menu (Debug)</h3>
-    {{ partial "debugprint.html" .Site.Menus }}
+{{ if (not ($.Param "disable_debug")) }}
+    {{ if (eq 1 $paginator.PageNumber) }}
+        <hr />
+        <h3 id="debug">SiteInfo (Debug)</h3>
+        {{ partial "debugprint.html" .Site }}
+        <hr />
+        <h3 id="file-debug">File Object (Debug)</h3>
+        {{ partial "debugprint.html" .File }}
+        <hr />
+        <h3 id="debug-menu">Menu (Debug)</h3>
+        {{ partial "debugprint.html" .Site.Menus }}
+    {{ end }}
 {{ end }}
 
 {{ end }}
