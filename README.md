@@ -1,10 +1,6 @@
 The **Bare Min** theme is heavily inspired from [the better
 mother-loving website](http://bettermotherfuckingwebsite.com/).
 
-## Minimum requirement
-
-Hugo 0.42
-
 ## Theme components
 This theme is composed of the base theme "hugo-bare-min-theme", and
 the "hugo-debugprint" component.
