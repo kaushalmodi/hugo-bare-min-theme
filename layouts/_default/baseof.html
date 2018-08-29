@@ -97,30 +97,30 @@
                 {{ printf `<span style="font-variant: small-caps;">.Layout</span> (<strong>%s</strong>)` .Layout | safeHTML }}
 
                 <br />
-                {{ $.Scratch.Set "__bundle" "n/a" }}
+                {{ $bundle_type := "n/a" }}
                 {{ if (eq .File.Path "") }}
-                    {{ $.Scratch.Set "__bundle" `n/a (regular "list" page)` }}
+                    {{ $bundle_type = `n/a (regular "list" page)` }}
                 {{ else }}
                     {{ if (eq .File.BaseFileName "_index") }}
-                        {{ $.Scratch.Set "__bundle" "branch" }}
+                        {{ $bundle_type = "branch" }}
                     {{ else if (eq .File.BaseFileName "index") }}
-                        {{ $.Scratch.Set "__bundle" "leaf" }}
+                        {{ $bundle_type = "leaf" }}
                     {{ else }}
-                        {{ $.Scratch.Set "__bundle" "n/a (regular page)" }}
+                        {{ $bundle_type = "n/a (regular page)" }}
                     {{ end }}
                 {{ end }}
-                {{ printf `<span style="font-variant: small-caps;">Bundle</span>: <strong>%s</strong>` ($.Scratch.Get "__bundle") | safeHTML }}
+                {{ printf `<span style="font-variant: small-caps;">Bundle</span>: <strong>%s</strong>` $bundle_type | safeHTML }}
             </small>
         </div>
 
         {{ with .Site.Taxonomies }}
             <div style="float: right;">
                 [
-                {{ $.Scratch.Set "first" true }}
+                {{ $is_first_key := true }}
                 {{ range $key,$val := . }}
                     {{ with $.Site.GetPage "taxonomyTerm" $key }}
-                        {{ printf `%s <a href="%s">%s</a>` (cond ($.Scratch.Get "first") "" "|") .Permalink .Type | safeHTML }}
-                        {{ $.Scratch.Set "first" false }}
+                        {{ printf `%s <a href="%s">%s</a>` (cond $is_first_key "" "|") .Permalink .Type | safeHTML }}
+                        {{ $is_first_key = false }}
                     {{ end }}
                 {{ end }}
                 {{ with $.Site.GetPage "page" "search" }}
