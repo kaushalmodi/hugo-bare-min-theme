@@ -90,6 +90,8 @@
 
     <body lang="{{ .Site.Language.Lang }}">
 
+        {{ block "top" . }}
+
         <div style="float: left;">
             <small>
                 {{ printf `<span style="font-variant: small-caps;">.Kind</span> (<strong>%s</strong>):` .Kind | safeHTML }}
@@ -181,6 +183,8 @@
                 {{ end }}
             {{ end }}
         {{ end }}
+
+        {{ end }}               <!-- End of "top" block -->
 
         {{ block "main" . }}{{ end }}
 

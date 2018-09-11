@@ -1,0 +1,19 @@
+{{ define "top" }}​{{ end }}
+{{/* Above ZERO WIDTH SPACE is inserted between the define and end.
+     Leaving it empty or with normal spaces does not work. */}}
+
+{{ define "main" }}
+
+<article>
+    <h1 class="post-title">404</h1>
+    <p>
+        Sorry, we have misplaced that URL or it's pointing to something that
+        doesn't exist.
+    </p>
+    <p>
+        Head back <a href="/">Home</a> or use the <a href="/search/">Search</a> to
+        try finding it again.
+    </p>
+</article>
+
+{{ end }}
