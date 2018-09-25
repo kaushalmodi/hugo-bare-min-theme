@@ -1,0 +1,21 @@
+{{ $pos_arg_0 := .Get 0 }}
+{{ $param_arg := .Get "param" }}
+{{ $p := $.Page }}
+{{ $s := $.Site }}
+{{ if $pos_arg_0 }}
+    {{ if (eq "params" $pos_arg_0) }}
+        <h3>.Page.Params ::</h3>
+        {{ partial "debugprint.html" $p.Params }}
+    {{ else if (eq "site" $pos_arg_0) }}
+        <h3>.Site ::</h3>
+        {{ partial "debugprint.html" $s}}
+    {{ end }}
+{{ else }}
+    {{ with $param_arg }}
+        {{ printf `<h3>.Page.Param "%s" ::</h3>` . | safeHTML }}
+        {{ partial "debugprint.html" ($p.Param .) }}
+    {{ else }}
+        <h3>.Page ::</h3>
+        {{ partial "debugprint.html" $p }}
+    {{ end }}
+{{ end }}
