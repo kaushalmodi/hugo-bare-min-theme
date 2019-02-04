@@ -59,11 +59,7 @@
             <ul>
 	        {{ range . }}
 	            {{ if .RelPermalink }}
-                        {{ if (ge (partial "version_str2float.html" $.Hugo.Version) 0.33) }}
-	                    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-                        {{ else }}
-	                    <li><a href="{{ .RelPermalink }}">{{ .RelPermalink }}</a></li>
-                        {{ end }}
+	                <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
 	            {{ else }}
 	                <li>{{ .ResourceType | title }} (no link, only embedded in page)</li>
 	            {{ end }}
@@ -82,17 +78,13 @@
 
         <hr />
         <a id="debug"></a>
-        {{ if (ge (partial "version_str2float.html" $.Hugo.Version) 0.33) }}
-            <h3 id="page-debug">Page (Debug)</h3>
-            {{ partial "debugprint.html" . }}
-        {{ end }}
+        <h3 id="page-debug">Page (Debug)</h3>
+        {{ partial "debugprint.html" . }}
         <h3 id="page-params-debug">Page Params (Debug)</h3>
         {{ partial "debugprint.html" .Params }}
-        {{ if (ge (partial "version_str2float.html" $.Hugo.Version) 0.33) }}
-            {{ with .Resources }}
-                <h3 id="resource-debug">Resources (Debug)</h3>
-                {{ partial "debugprint.html" . }}
-            {{ end }}
+        {{ with .Resources }}
+            <h3 id="resource-debug">Resources (Debug)</h3>
+            {{ partial "debugprint.html" . }}
         {{ end }}
         <h3 id="file-debug">File Object (Debug)</h3>
         {{ partial "debugprint.html" .File }}
