@@ -1,6 +1,6 @@
 [build]
   publish = "exampleSite/public"
-  command = "cd exampleSite && hugo"
+  command = "cd exampleSite && hugo --themesDir "themes"
 
 [context.production]
   [context.production.environment]
