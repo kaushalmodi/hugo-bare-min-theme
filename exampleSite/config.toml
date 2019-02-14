@@ -2,6 +2,7 @@ baseurl = "https://example.com"
 title = "Hugo Bare Min Theme"
 author = "Kaushal Modi"
 theme = "hugo-bare-min-theme"
+themesDir = "../.."
 
 enableEmoji = true
 enableGitInfo = true

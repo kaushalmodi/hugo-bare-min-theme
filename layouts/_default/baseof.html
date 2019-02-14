@@ -57,7 +57,7 @@
              font-size: 0.8em;
          }
          {{ if (not ($.Param "disable_debug")) }}
-             {{ partial "debugprint.css" | safeCSS }}
+             {{ partial "debugprint.css" . | safeCSS }}
          {{ end }}
          /* Captions */
          figcaption,
