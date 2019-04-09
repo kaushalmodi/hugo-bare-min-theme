@@ -100,15 +100,17 @@
 
                 <br />
                 {{ $bundle_type := "n/a" }}
-                {{ if (eq .File.Path "") }}
-                    {{ $bundle_type = `n/a (regular "list" page)` }}
-                {{ else }}
-                    {{ if (eq .File.BaseFileName "_index") }}
-                        {{ $bundle_type = "branch" }}
-                    {{ else if (eq .File.BaseFileName "index") }}
-                        {{ $bundle_type = "leaf" }}
+                {{ with .File }}
+                    {{ if (eq .Path "") }}
+                        {{ $bundle_type = `n/a (regular "list" page)` }}
                     {{ else }}
-                        {{ $bundle_type = "n/a (regular page)" }}
+                        {{ if (eq .BaseFileName "_index") }}
+                            {{ $bundle_type = "branch" }}
+                        {{ else if (eq .BaseFileName "index") }}
+                            {{ $bundle_type = "leaf" }}
+                        {{ else }}
+                            {{ $bundle_type = "n/a (regular page)" }}
+                        {{ end }}
                     {{ end }}
                 {{ end }}
                 {{ printf `<span style="font-variant: small-caps;">Bundle</span>: <strong>%s</strong>` $bundle_type | safeHTML }}
@@ -170,16 +172,18 @@
             {{ end }}
         {{ end }}
 
-        {{ with .File.Path }}
-            {{ $path := . }}
-            {{ with $.Site.Params.source }}
-                {{ if .md_dir }}
-                    <br />
-                    <div style="float: right;">
-                        ✱ <i>Markdown <a href="{{ .url }}/raw/master/{{ .md_dir }}/{{ $path }}">
-                        source</a> of this page</i>
-                    </div>
-                    <div style="clear: both;"></div> <!-- Clear floats -->
+        {{ with .File }}
+            {{ with .Path }}
+                {{ $path := . }}
+                {{ with site.Params.source }}
+                    {{ if .md_dir }}
+                        <br />
+                        <div style="float: right;">
+                            ✱ <i>Markdown <a href="{{ .url }}/raw/master/{{ .md_dir }}/{{ $path }}">
+                            source</a> of this page</i>
+                        </div>
+                        <div style="clear: both;"></div> <!-- Clear floats -->
+                    {{ end }}
                 {{ end }}
             {{ end }}
         {{ end }}
@@ -193,8 +197,8 @@
             {{ with .Site.Params.source.org_dir }}
                 <a href="https://github.com/kaushalmodi/ox-hugo"><b>ox-hugo</b></a> package for Emacs/Org-mode +
             {{ end }}
-            <a href="https://github.com/kaushalmodi/hugo-bare-min-theme"><code>hugo-bare-min-theme</code></a> + Hugo <b>{{ .Hugo.Version }}</b>
-            {{ with .Hugo.CommitHash }}
+            <a href="https://github.com/kaushalmodi/hugo-bare-min-theme"><code>hugo-bare-min-theme</code></a> + Hugo <b>{{ hugo.Version }}</b>
+            {{ with hugo.CommitHash }}
                 (commit
                 {{ . | replaceRE "^[0-9a-f]{7,}" `<a href="https://github.com/gohugoio/hugo/commit/${0}">${0}</a>` | replaceRE ":chroma-([0-9a-f]{7,})" `, using Chroma commit <a href="https://github.com/alecthomas/chroma/commit/${1}">${1}</a>` | safeHTML -}}
                 )

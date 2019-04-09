@@ -4,5 +4,5 @@
 
 [context.production]
   [context.production.environment]
-    HUGO_VERSION = "0.54.0"
+    HUGO_VERSION = "0.55.0"
     HUGO_BASEURL = "https://hugo-bare-min.netlify.com/"

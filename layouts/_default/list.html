@@ -3,11 +3,15 @@
 {{ partial "header_image.html" . }}
 
 {{ if (eq .Kind "section") }}                          <!-- Section -->
-    {{ if (eq .File.Path "") }} <!-- Regular section -->
-        <h1>Posts in ‘{{ .Dir | default .Section }}’</h1>
-    {{ else }}                  <!-- Branch bundle based section -->
-        <h1>{{ .Title }}</h1>
-        <h2>Posts in ‘{{ .Dir | default .Section }}’</h2>
+    {{ $title := .Title }}
+    {{ $section := .Section }}
+    {{ with .File }}
+        {{ if (eq .Path "") }} <!-- Regular section -->
+            <h1>Posts in ‘{{ .Dir | default $section }}’</h1>
+        {{ else }}                  <!-- Branch bundle based section -->
+            <h1>{{ $title }}</h1>
+            <h2>Posts in ‘{{ .Dir | default $section }}’</h2>
+        {{ end }}
     {{ end }}
 {{ else if (eq .Kind "taxonomy") }}
     <!-- If the page is /tags/foo/, .Data.Singular = "tag", .Data.Term = "foo" -->
@@ -55,13 +59,15 @@
         {{ partial "debugprint.html" . }}
     {{ end }}
     <h3 id="file-debug">File Object (Debug)</h3>
-    {{ if (ne .File.Path "") }}
-        {{ partial "debugprint.html" .File }}
-    {{ else }}
-        <!-- For pages that don't have an associated content file name,
-             they only have the .File.UniqueID.
-        -->
-        {{ partial "debugprint.html" (dict "UniqueID" .File.UniqueID "Path" .File.Path) }}
+    {{ with .File }}
+        {{ if (ne .Path "") }}
+            {{ partial "debugprint.html" . }}
+        {{ else }}
+            <!-- For pages that don't have an associated content file name,
+                 they only have the .File.UniqueID.
+            -->
+            {{ partial "debugprint.html" (dict "UniqueID" .UniqueID "Path" .Path) }}
+        {{ end }}
     {{ end }}
 {{ end }}
 
