@@ -2,5 +2,5 @@
          (fill-column . 70)
          (sentence-end-double-space . t)))
  (org-mode . ((mode . auto-fill)
-              (org-hugo-auto-export-on-save . t)))
+              (eval . (org-hugo-auto-export-mode))))
  (markdown-mode . ((mode . auto-fill))))
