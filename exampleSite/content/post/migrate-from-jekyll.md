@@ -45,7 +45,7 @@ documentation](/overview/configuration/) for details.
 
 The default is for Jekyll to publish to `_site` and for Hugo to
 publish to `public`. If, like me, you have [`_site` mapped to a git
-submodule on the `gh-pages` branch](http://blog.blindgaenger.net/generate_github_pages_in_a_submodule.html), you'll want to do one of two
+submodule on the `gh-pages` branch](http://blog.blindgaenger.net/generate%5Fgithub%5Fpages%5Fin%5Fa%5Fsubmodule.html), you'll want to do one of two
 alternatives:
 
 1.  Change your submodule to point to map `gh-pages` to public instead
@@ -86,7 +86,7 @@ port.
 
 ### Implementation {#implementation}
 
-As an example, I was using a custom [`image_tag`](https://github.com/alexandre-normand/alexandre-normand/blob/74bb12036a71334fdb7dba84e073382fc06908ec/_plugins/image_tag.rb) plugin to generate
+As an example, I was using a custom [`image_tag`](https://github.com/alexandre-normand/alexandre-normand/blob/74bb12036a71334fdb7dba84e073382fc06908ec/%5Fplugins/image%5Ftag.rb) plugin to generate
 figures with caption when running Jekyll. As I read about shortcodes,
 I found Hugo had a nice built-in shortcode that does exactly the same
 thing.

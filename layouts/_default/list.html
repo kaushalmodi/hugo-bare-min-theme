@@ -20,7 +20,7 @@
 
 <section>
     <ul class="post-list">
-        {{ range .Pages }}
+        {{ range .RegularPages }}
             {{ .Render "li" }}
         {{ end }}
     </ul>

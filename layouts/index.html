@@ -21,8 +21,9 @@
     </ul>
 {{ end }}
 
-<!-- Have the paginator list posts, sorted by last modified date, most recent first -->
-{{ $paginator := .Paginate (.Pages.ByLastmod.Reverse) 10 }}
+<!-- Have the paginator list all the regular pages in the site,
+     sorted by last modified date, most recent first -->
+{{ $paginator := .Paginate (site.RegularPages.ByLastmod.Reverse) 10 }}
 
 <div class="posts">
     <!-- http://justindunham.net/blog-bells-and-whistles-in-hugo/ -->
