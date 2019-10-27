@@ -6,6 +6,6 @@
      that 'unsafe-inline can also be removed from script-src CSP.
 -->
 <script src="{{ "js/mathjax-config.js" | absURL }}"></script>
- <!-- https://gohugo.io/content-management/formats/#mathjax-with-hugo -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- Use MathJax 3 for faster loading -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
