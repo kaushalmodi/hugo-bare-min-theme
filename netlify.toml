@@ -6,3 +6,8 @@
   [context.production.environment]
     HUGO_VERSION = "0.59.0"
     HUGO_BASEURL = "https://hugo-bare-min.netlify.com/"
+
+[context.deploy-preview]
+  command = "hugo -b ${DEPLOY_PRIME_URL}"
+  [context.deploy-preview.environment]
+    HUGO_VERSION = "0.59.0"
