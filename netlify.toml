@@ -9,7 +9,7 @@
 
 # PR previews
 [context.deploy-preview]
-  command = "hugo -b ${DEPLOY_PRIME_URL}"
+  command = "cd exampleSite && hugo -b ${DEPLOY_PRIME_URL}"
   [context.deploy-preview.environment]
     HUGO_VERSION = "0.59.0"
 
