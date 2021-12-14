@@ -149,7 +149,7 @@
                 </p>
                 <ul>
                     {{ if .org_dir }}
-                        <li>The <i>actual <b>source</b></i>.. <a href="{{ .url }}/tree/master/{{ .org_dir }}">Org source dir</a></li>
+                        <li>The <i>actual <b>source</b></i>.. <a href="{{ .url }}/tree/{{ .default_branch | default "master" }}/{{ .org_dir }}">Org source dir</a></li>
                         <li>
                             <ul>
                                 <li>Below Markdown is exported from Org using <code>ox-hugo</code>.</li>
@@ -157,7 +157,7 @@
                         </li>
                     {{ end }}
                     {{ if .md_dir }}
-                        <li><a href="{{ .url }}/tree/master/{{ .md_dir }}">Markdown source dir</a></li>
+                        <li><a href="{{ .url }}/tree/{{ .default_branch | default "master" }}/{{ .md_dir }}">Markdown source dir</a></li>
                     {{ end }}
                 </ul>
             {{ end }}
@@ -179,7 +179,7 @@
                     {{ if .md_dir }}
                         <br />
                         <div style="float: right;">
-                            ✱ <i>Markdown <a href="{{ .url }}/raw/master/{{ .md_dir }}/{{ $path }}">
+                            ✱ <i>Markdown <a href="{{ .url }}/raw/{{ .default_branch | default "master" }}/{{ .md_dir }}/{{ $path }}">
                             source</a> of this page</i>
                         </div>
                         <div style="clear: both;"></div> <!-- Clear floats -->
