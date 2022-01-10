@@ -2,6 +2,10 @@
 
 {{ partial "mathjax.html" }}
 
+{{ with .Params.tikzjax }}
+    {{ partialCached "tikzjax.html" $ }}
+{{ end }}
+
 <!-- Chroma Github theme CSS -->
 <link rel="stylesheet" href="{{ "css/github_chroma.css" | relURL }}" type="text/css" />
 {{ end }}
