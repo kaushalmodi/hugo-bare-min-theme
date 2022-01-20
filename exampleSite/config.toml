@@ -11,6 +11,10 @@ disableFastRender = true        # Hugo 0.30
 pygmentsCodeFences = true       # This applies to Chroma too.
 pygmentsUseClasses = true       # This applies to Chroma too.
 
+[module]
+  [[module.imports]]
+    path = "github.com/kaushalmodi/hugo-bare-min-theme"
+
 [Author]
   name = "Kaushal Modi"
 
