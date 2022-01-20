@@ -23,7 +23,7 @@
                 {{ $val := . }}
                 <p>
                     {{ printf `<span style="font-variant: small-caps;">%s</span>:` $key | safeHTML }}
-                    {{ with $.Site.GetPage "taxonomyTerm" $key }}
+                    {{ with $.Site.GetPage "taxonomy" $key }}
                         {{ $taxonomy_page := . }}
                         {{ range $val }}
                             <a href="{{ printf "%s%s" $taxonomy_page.Permalink (. | urlize) }}">{{ . }}</a>

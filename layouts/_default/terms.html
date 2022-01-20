@@ -12,7 +12,7 @@
 
 {{ if .Param .Type }}
     <!-- https://discourse.gohugo.io/t/solved-creating-index-md-for-taxonomyterm-pages-tags-categories-hangs-hugo/11121/13?u=kaushalmodi -->
-    {{ errorf "You cannot have a taxonomyTerm Kind page of Type '%s' have the same taxonomy set in its front-matter. Hugo will infloop (because of the way the debugprint partial works)!!\n  e.g. do not set 'tags' for a 'tags' taxonomyTerm page!" .Type }}
+    {{ errorf "You cannot have a 'taxonomy' Kind page of Type '%s' have a 'term' named same as the Kind in its front-matter. Hugo will infloop (because of the way the debugprint partial works)!!\n  e.g. do not set a 'tags' term for a 'tags' taxonomy Kind page!" .Type }}
 {{ end }}
 
 {{ with .Resources }}

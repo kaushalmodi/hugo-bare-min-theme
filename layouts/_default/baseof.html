@@ -137,7 +137,7 @@
                 [
                 {{ $is_first_key := true }}
                 {{ range $key,$val := . }}
-                    {{ with $.Site.GetPage "taxonomyTerm" $key }}
+                    {{ with $.Site.GetPage "taxonomy" $key }}
                         {{ printf `%s <a href="%s">%s</a>` (cond $is_first_key "" "|") .Permalink .Type | safeHTML }}
                         {{ $is_first_key = false }}
                     {{ end }}

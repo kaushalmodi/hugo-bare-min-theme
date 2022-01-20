@@ -13,7 +13,7 @@
             <h2>Posts in ‘{{ .Dir | default $section }}’</h2>
         {{ end }}
     {{ end }}
-{{ else if (eq .Kind "taxonomy") }}
+{{ else if (eq .Kind "term") }}
     <!-- If the page is /tags/foo/, .Data.Singular = "tag", .Data.Term = "foo" -->
     <h1>Posts with the {{ .Data.Singular }} ‘{{ .Data.Term }}’</h1>
 {{ end }}
