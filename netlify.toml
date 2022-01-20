@@ -4,16 +4,11 @@
 
 [context.production]
   [context.production.environment]
-    HUGO_VERSION = "0.59.0"
     HUGO_BASEURL = "https://hugo-bare-min.netlify.com/"
 
 # PR previews
 [context.deploy-preview]
   command = "cd exampleSite && hugo -b ${DEPLOY_PRIME_URL}"
-  [context.deploy-preview.environment]
-    HUGO_VERSION = "0.59.0"
 
 # [context.branch-deploy]
 #   command = "hugo -b ${DEPLOY_PRIME_URL}"
-#   [context.branch-deploy.environment]
-#     HUGO_VERSION = "0.59.0"
