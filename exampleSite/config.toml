@@ -1,7 +1,6 @@
 baseurl = "https://example.com"
 title = "Hugo Bare Min Theme"
 author = "Kaushal Modi"
-theme = "hugo-bare-min-theme"
 
 enableEmoji = true
 enableGitInfo = true
@@ -10,6 +9,10 @@ disableFastRender = true        # Hugo 0.30
 
 pygmentsCodeFences = true       # This applies to Chroma too.
 pygmentsUseClasses = true       # This applies to Chroma too.
+
+[module]
+  [[module.imports]]
+    path = "github.com/kaushalmodi/hugo-bare-min-theme"
 
 [Author]
   name = "Kaushal Modi"

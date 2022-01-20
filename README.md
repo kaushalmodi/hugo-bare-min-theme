@@ -1,19 +1,35 @@
 The **Bare Min** theme is heavily inspired from [the better
 mother-loving website](http://bettermotherfuckingwebsite.com/).
 
+# Requirements
+
+You need to install the latest version of Go from
+https://go.dev/doc/install because this theme component requires
+[`hugo mod ..` commands](https://gohugo.io/hugo-modules/use-modules/)
+to work.
+
+This update on switch to using Hugo Modules was last tested with Hugo
+v0.92.0.
+
+# Installing this theme
+
+To use this component,
+
+1.  Add this to your site's TOML config file:
+
+    ```toml
+    [module]
+      [[module.imports]]
+        path = "github.com/kaushalmodi/hugo-bare-min-theme"
+    ```
+
+2.  Run `hugo mod -get -u` in your main site directory.
+
 ## Theme components
+
 This theme is composed of the base theme "hugo-bare-min-theme", and
-the "hugo-debugprint" component.
-
-To use this theme, you need to clone this theme and the component(s) too:
-```shell
-cd HUGO_SITE_DIR/themes
-git clone https://github.com/kaushalmodi/hugo-bare-min-theme
-git clone https://github.com/kaushalmodi/hugo-search-fuse-js
-git clone https://github.com/kaushalmodi/hugo-debugprint
-```
-
-**Do not change the cloned repo directory names.**
+the "hugo-debugprint" component (which gets auto-fetched using `hugo
+mod`).
 
 ## Theme Concept
 
@@ -82,8 +98,8 @@ and can be multiple lines.
     org_dir = "content-org"              # Needed if you want to get a link to the Org source (e.g. when using ox-hugo!)
 ```
 
-**Note**: It is **mandatory** to set `.Site.Params.source.url` if you
-set `.Site.Params.source.md_dir` or `.Site.Params.source.org_dir`.
+**Note**: It is **mandatory** to set `site.Params.source.url` if you
+set `site.Params.source.md_dir` or `site.Params.source.org_dir`.
 
 See the `Params` section in the [`config.toml` of this theme's
 `exampleSite`](https://github.com/kaushalmodi/hugo-bare-min-theme/blob/master/exampleSite/config.toml)

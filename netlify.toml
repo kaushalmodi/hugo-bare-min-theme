@@ -8,7 +8,7 @@
 
 # PR previews
 [context.deploy-preview]
-  command = "cd exampleSite && hugo -b ${DEPLOY_PRIME_URL}"
+  command = "cd exampleSite && hugo --baseURL ${DEPLOY_PRIME_URL}/"
 
-# [context.branch-deploy]
-#   command = "hugo -b ${DEPLOY_PRIME_URL}"
+[context.branch-deploy]
+  command = "cd exampleSite && hugo --baseURL ${DEPLOY_PRIME_URL}/"
