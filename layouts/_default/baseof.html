@@ -137,12 +137,12 @@
                 [
                 {{ $is_first_key := true }}
                 {{ range $key,$val := . }}
-                    {{ with $.Site.GetPage "taxonomy" $key }}
+                    {{ with site.GetPage "taxonomy" $key }}
                         {{ printf `%s <a href="%s">%s</a>` (cond $is_first_key "" "|") .Permalink .Type | safeHTML }}
                         {{ $is_first_key = false }}
                     {{ end }}
                 {{ end }}
-                {{ with $.Site.GetPage "page" "search" }}
+                {{ with site.GetPage "page" "search" }}
                     {{ printf `%s <a href="%s"><strong>%s</strong></a>` "|" .Permalink (.Title | lower) | safeHTML }}
                 {{ end }}
                 ]
@@ -181,7 +181,7 @@
 
         {{ with .GitInfo }} <!-- To enable this, put "enableGitInfo = true" in your site config.toml -->
             {{ $git := . }}
-            {{ with $.Site.Params.source }}
+            {{ with site.Params.source }}
                 This page was created/modified in commit <a href="{{ .url }}/commit/{{- $git.Hash -}}">
                 {{- $git.AbbreviatedHash -}}</a> "{{ $git.Subject }}" on <b>{{ dateFormat "2006-01-02" $git.AuthorDate }}</b>.
             {{ end }}

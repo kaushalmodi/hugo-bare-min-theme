@@ -11,7 +11,7 @@
             <!-- Cannot use absURL below because it doesn't work as expected if baseURL has a subdir.
                  See https://hugo-sandbox.netlify.com/subdir-canonify-true/ .
             -->
-            {{ $baseurl_no_trailing_slash := $.Site.BaseURL | replaceRE "/$" "" }}
+            {{ $baseurl_no_trailing_slash := site.BaseURL | replaceRE "/$" "" }}
             <meta name="og:image" content="{{ (printf "%s%s" $baseurl_no_trailing_slash .) }}"/>
         {{ else }}
             <meta name="og:image" content="{{ (printf "%s%s" $permalink_pretty .) }}"/>
@@ -34,7 +34,7 @@
 {{ end }}
 {{ with .Params.audio }}
     {{ if (findRE "^/" .) }} <!-- If audio link has a leading slash -->
-        {{ $baseurl_no_trailing_slash := $.Site.BaseURL | replaceRE "/$" "" }}
+        {{ $baseurl_no_trailing_slash := site.BaseURL | replaceRE "/$" "" }}
         <meta name="og:audio" content="{{ (printf "%s%s" $baseurl_no_trailing_slash .) }}"/>
     {{ else }}
         <meta name="og:audio" content="{{ (printf "%s%s" $permalink_pretty .) }}"/>
@@ -49,7 +49,7 @@
 {{ with .Params.videos }}
     {{ range . }}
         {{ if (findRE "^/" .) }} <!-- If video link has a leading slash -->
-            {{ $baseurl_no_trailing_slash := $.Site.BaseURL | replaceRE "/$" "" }}
+            {{ $baseurl_no_trailing_slash := site.BaseURL | replaceRE "/$" "" }}
             <meta name="og:video" content="{{ (printf "%s%s" $baseurl_no_trailing_slash .) }}"/>
         {{ else }}
             <meta name="og:video" content="{{ (printf "%s%s" $permalink_pretty .) }}"/>
