@@ -91,6 +91,10 @@
          .org-target::after {
              content: '◎ ';
          }
+         /* Hide bullets in TOC when headings are numbered. */
+         .toc.has-section-numbers ul {
+             list-style: none;
+         }
         </style>
 
         <!-- Opengraph and Twitter -->
