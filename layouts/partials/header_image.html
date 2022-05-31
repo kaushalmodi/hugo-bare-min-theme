@@ -5,25 +5,25 @@
     {{ $size := .Params.size | default 800 }}
     {{ $image := $original.Resize (printf "%dx" $size) }}
     <figure style="width: {{ add $image.Width 3 }}px; padding: 3px; background-color: #cccc">
-	<img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}">
-	<figcaption>
+	    <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}">
+	    <figcaption>
             {{ with .Params }}
-	        {{ with .caption }}
-	            {{ . | markdownify }}
+	            {{ with .caption }}
+	                {{ . | $.Page.RenderString | emojify }}
                 {{ end }}
                 {{ if .credit }}
                     {{ printf "(Credit:&nbsp;" | safeHTML -}}
                     {{- with .url -}}
                         {{- printf `<a href="%s">` . | safeHTML -}}
                     {{- end -}}
-                    {{- .credit | markdownify -}}
+                    {{- .credit | $.Page.RenderString -}}
                     {{- with .url -}}
                         {{- printf "</a>" | safeHTML -}}
                     {{- end -}}
                     {{- printf ")" | safeHTML }}
                 {{ end }}
             {{ end }}
-	</figcaption>
+	    </figcaption>
     </figure>
     {{ if (not ($.Param "disable_debug")) }}
         {{ with .Params }}

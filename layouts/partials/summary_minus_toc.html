@@ -1,5 +1,5 @@
 {{- with .Description -}}
-    {{- . | markdownify | printf "<p>%s</p>" | safeHTML -}}
+    {{- . | $.Page.RenderString | printf "<p>%s</p>" | safeHTML -}}
 {{- else -}}
     {{- $summary_has_org_toc := substr .Content 0 30 | findRE "[\".]ox-hugo-toc" -}}
     {{- if $summary_has_org_toc -}}
@@ -9,9 +9,9 @@
         {{- $summary_raw := index $content_splits 1 -}}
         {{- $summary_splits := split $summary_raw "<!--more-->" -}}
         {{- if eq (len $summary_splits) 2 -}}
-            {{- index $summary_splits 0 | markdownify -}}
+            {{- index $summary_splits 0 | $.Page.RenderString -}}
         {{- else -}}
-            {{- $summary_raw | markdownify | truncate 300 -}}
+            {{- $summary_raw | $.Page.RenderString | truncate 300 -}}
         {{- end -}}
     {{- else -}}
         <!-- Print the whole Summary if endtoc special comment is not found. -->

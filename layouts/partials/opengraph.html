@@ -2,7 +2,7 @@
 {{ $permalink_pretty := .Permalink | replaceRE "\\.html$" "/" }} <!-- Always have a trailing slash, even with uglyURLs enabled. -->
 <meta property="og:title" content="{{ .Title }}" />
 <meta property="og:description"
-      content="{{ with .Description }}{{ . | markdownify | plainify }}{{ else }}{{ if .IsPage }}{{ partial "summary_minus_toc.html" . | markdownify | plainify }}{{ else }}{{ with .Site.Params.description }}{{ . | markdownify | plainify }}{{ end }}{{ end }}{{ end }}" />
+      content="{{ with .Description }}{{ . | $.Page.RenderString | plainify }}{{ else }}{{ if .IsPage }}{{ partial "summary_minus_toc.html" . | $.Page.RenderString | plainify }}{{ else }}{{ with .Site.Params.description }}{{ . | $.Page.RenderString | plainify }}{{ end }}{{ end }}{{ end }}" />
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
 <meta property="og:url" content="{{ .Permalink }}" />
 {{ with .Params.images }}

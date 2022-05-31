@@ -8,5 +8,5 @@
 -->
 <li>
     <a href='{{ .Permalink }}'> {{ .Title }}</a>
-    {{ .Description | markdownify }}
+    {{ .Description | $.Page.RenderString | emojify }}
 </li>
